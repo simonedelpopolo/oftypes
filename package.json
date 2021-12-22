@@ -1,0 +1,74 @@
+{
+  "name": "oftypes",
+  "version": "0.1.1",
+  "description": "Configurable typeof responses. All the primitives are covered [string, number, bigint, boolean, undefined, symbol, null]. Function and Array ( STD built-in objects ) are differentiated from Object. Javascript ESM module.",
+  "type": "module",
+  "engines": {
+    "node": ">=v16.13.1 <17",
+    "npm": "~8.3.0"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "jest": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest",
+    "eslint": "npx eslint . --ext .js",
+    "eslint-html": "npx eslint . --ext .js -o ./eslint-html/index.html -f html",
+    "eslint-fix": "npx eslint --fix . --ext .js",
+    "assertions": "cd ./assertions/ && node ./assertions.js",
+    "assertion0": "cd ./assertions/ && node ./assertions.js assertion0",
+    "assertion1": "cd ./assertions/ && node ./assertions.js assertion1",
+    "assertion2": "cd ./assertions/ && node ./assertions.js assertion2",
+    "assertion3": "cd ./assertions/ && node ./assertions.js assertion3",
+    "assertion4": "cd ./assertions/ && node ./assertions.js assertion4",
+    "assertion5": "cd ./assertions/ && node ./assertions.js assertion5",
+    "assertion6": "cd ./assertions/ && node ./assertions.js assertion6",
+    "assertion7": "cd ./assertions/ && node ./assertions.js assertion7"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-plugin-jsdoc": "^37.2.2",
+    "jest": "^27.4.4",
+    "jest-extended": "^1.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/simonedelpopolo/oftypes#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonedelpopolo/oftypes.git"
+  },
+  "bugs": {
+    "email": "simonedelpopolo@outlook.com",
+    "url": "https://github.com/simonedelpopolo/oftypes/issues"
+  },
+  "keywords": [
+    "type checking",
+    "Object",
+    "Symbol",
+    "null",
+    "Function",
+    "undefined",
+    "faster",
+    "utility",
+    "Array",
+    "String",
+    "Number",
+    "BigInt",
+    "Boolean"
+  ],
+  "author": {
+    "name": "Simone Del Popolo",
+    "email": "simonedelpopolo@outlook.com",
+    "url": "https://github.com/simonedelpopolo"
+  },
+  "license": "Apache-2.0"
+}

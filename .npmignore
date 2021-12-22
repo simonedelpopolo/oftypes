@@ -1,0 +1,11 @@
+node_modules
+.idea
+coverage
+package-lock.json
+.git
+tests
+assertions
+jest.config.js
+.eslintrc.json
+.eslintignore
+eslint-html
