@@ -1,12 +1,14 @@
 console.time( 'assertions finished ' )
 import { EventEmitter } from 'events'
 import { stat } from 'fs/promises'
-import { bigint_, boolean_, null_, string_, symbol_ } from '../index.js'
-import { deepEqual, ok } from 'assert/strict'
+import { array_, bigint_, boolean_, null_, object_, string_, symbol_ } from '../index.js'
+import { deepEqual, ok } from 'assert'
 
 const AssertionEvent = new EventEmitter()
 
-AssertionEvent.on( 'end', ()=>{
+AssertionEvent.on( 'end', () => {
+    console.log( '__________________________________________________________________________' )
+    console.log()
     console.timeEnd( 'assertions finished ' )
 } )
 
@@ -56,7 +58,7 @@ const Assertions = {
         
         console.log( '__________________________________________________________________________' )
         
-        const resolvers = {true: 'it is type of string!', false: 'it is not of type string!'}
+        const resolvers = { true: 'it is type of string!', false: 'it is not of type string!' }
         const variable_string = 'Hello folkyyyys'
         const variable_number = 10
         const expected_string = [ resolvers.true, variable_string ]
@@ -106,7 +108,7 @@ const Assertions = {
         
         let fileStat = await string_( variable, resolvers, payback )
         let resultStats
-        if ( typeof fileStat[0] === 'function' )
+        if ( typeof fileStat[ 0 ] === 'function' )
             resultStats =  await fileStat[ 0 ]()
         else
             resultStats =   fileStat
@@ -126,8 +128,8 @@ const Assertions = {
         
         console.log( '__________________________________________________________________________' )
         
-        const resolvers = {true: 'it is null!', false: 'it is not null!'}
-        const variable = {object:null}
+        const resolvers = { true: 'it is null!', false: 'it is not null!' }
+        const variable = { object:null }
         const expected_null = [ resolvers.true, variable.object ]
         const expected_not_null = [ resolvers.false, variable ]
         
@@ -158,9 +160,9 @@ const Assertions = {
         
         console.log( '__________________________________________________________________________' )
         
-        const resolvers = {true: 'it is oftype boolean!', false: 'it is not oftype boolean!'}
+        const resolvers = { true: 'it is oftype boolean!', false: 'it is not oftype boolean!' }
         const variable_boolean = true
-        const variable_not_boolean = {object:()=>{}}
+        const variable_not_boolean = { object:() => {} }
         const expected_boolean = true
         const expected_not_boolean = [ resolvers.false, variable_not_boolean ]
         
@@ -248,19 +250,201 @@ const Assertions = {
         console.log( 'Expected result -> ', expected_not_bigint )
         
     },
+    
+    assertion8 : async () => {
+        console.log( '__________________________________________________________________________' )
+    
+        console.log( '\x1b[31m Assertions type of array', 8, '\x1b[0m' )
+        console.log( '    \x1b[31m check the variable if it is of type array, it will get the payback', 0, '\x1b[0m' )
+        console.log( '    \x1b[31m check the variable if it is of type array from a given object, it will get the payback. must return false.', 1, '\x1b[0m' )
+    
+        let response
+        Assertions.assertion8.statement = {
+        
+            '0' : async ( ) => {
+                console.log( '    \x1b[31m executing array_', 0, '\x1b[0m\n' )
+                
+                const variable = [ { hello:'ciao' } ]
+                response = await array_( variable, undefined, true )
+            
+                try{
+                    ok( response[ 0 ] === true )
+                }catch ( error ) {
+                    response = error.message
+                }
+            
+                Assertions.assertion8.statement[ '0' ].message = 'test concluded'
+            
+                return response
+            },
+    
+            '1' : async ( ) => {
+                console.log( '    \x1b[31m executing array_ must return false', 1, '\x1b[0m\n' )
+        
+                const variable = { hello: 'ciao' }
+                response = await array_( variable, undefined, true )
+                
+                try{
+                    ok( response[ 0 ] === false, 'assertion failed' )
+                }catch ( error ) {
+                    response = error
+                }
+        
+                Assertions.assertion8.statement[ '1' ].message = 'test concluded'
+        
+                return response
+            },
+        
+        }
+    
+        console.log( '---------------------------------------------------------------------------' )
+        const response0 = await Assertions.assertion8.statement[ '0' ]()
+        console.log( Assertions.assertion8.statement[ '0' ].message )
+        console.log( 'returned response -> ', await  response0 )
+    
+        console.log( '---------------------------------------------------------------------------' )
+        const response1 = await Assertions.assertion8.statement[ '1' ]()
+        console.log( Assertions.assertion8.statement[ '1' ].message )
+        console.log( 'returned response -> ', await  response1 )
+    },
+    
+    assertion9 : async () => {
+        console.log( '__________________________________________________________________________' )
+        
+        console.log( '\x1b[31m Assertions type of object', 9, '\x1b[0m' )
+        console.log( '    \x1b[31m check the variable if it is of type object, it will get the payback', 0, '\x1b[0m' )
+        console.log( '    \x1b[31m check the variable if it is of type object from a given array, it will get the payback. must return false.', 1, '\x1b[0m' )
+        
+        let response
+        Assertions.assertion9.statement = {
+            
+            '0' : async ( ) => {
+                console.log( '    \x1b[31m executing object_', 0, '\x1b[0m\n' )
+                
+                const variable = { hello:'ciao' }
+                response = await object_( variable, undefined, true )
+                
+                try{
+                    ok( response[ 0 ] === true )
+                }catch ( error ) {
+                    response = error.message
+                }
+                
+                Assertions.assertion9.statement[ '0' ].message = 'test concluded'
+                
+                return response
+            },
+            
+            '1' : async ( ) => {
+                console.log( '    \x1b[31m executing object_ must return false', 1, '\x1b[0m\n' )
+                
+                const variable = [ { hello: 'ciao' } ]
+                response = await object_( variable, undefined, true )
+                
+                try{
+                    ok( response[ 0 ] === false, 'assertion failed' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion9.statement[ '1' ].message = 'test concluded'
+                
+                return response
+            },
+            
+        }
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response0 = await Assertions.assertion9.statement[ '0' ]()
+        console.log( Assertions.assertion9.statement[ '0' ].message )
+        console.log( 'returned response -> ', await  response0 )
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response1 = await Assertions.assertion9.statement[ '1' ]()
+        console.log( Assertions.assertion9.statement[ '1' ].message )
+        console.log( 'returned response -> ', await  response1 )
+    },
+    
+    assertion10 : async () => {
+        console.log( '__________________________________________________________________________' )
+        
+        console.log( '\x1b[31m Assertions conditional if for object and array', 10, '\x1b[0m' )
+        console.log( '    \x1b[31m conditional if "object || array" ', 0, '\x1b[0m' )
+        console.log( '    \x1b[31m conditional if "object && array" ', 1, '\x1b[0m' )
+        
+        let response
+        Assertions.assertion10.statement = {
+            
+            '0' : async ( ) => {
+                console.log( '    \x1b[31m executing "object || object" ', 0, '\x1b[0m\n' )
+                
+                const obj = { hello:'ciao' }
+                const arr = [ { hello:'ciao' } ]
+                
+                if( await object_( obj ) === false || await object_( arr ) === false )
+                    response = 'caught'
+                else
+                    response = 'not caught'
+    
+                try{
+                    ok( response === 'caught', 'not caught' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion10.statement[ '0' ].message = 'test concluded'
+                
+                return response
+            },
+    
+            '1' : async ( ) => {
+                console.log( '    \x1b[31m executing "object && array" ', 1, '\x1b[0m\n' )
+        
+                const obj = { hello:'ciao' }
+                const arr = [ { hello:'ciao' } ]
+        
+                if( await object_( obj ) === true && await array_( arr ) === true )
+                    response = 'caught'
+                else
+                    response = 'not caught'
+        
+                try{
+                    ok( response === 'caught', 'not caught' )
+                }catch ( error ) {
+                    response = error
+                }
+        
+                Assertions.assertion10.statement[ '1' ].message = 'test concluded'
+        
+                return response
+            },
+            
+        }
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response0 = await Assertions.assertion10.statement[ '0' ]()
+        console.log( Assertions.assertion10.statement[ '0' ].message )
+        console.log( 'returned response -> ', await  response0 )
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response1 = await Assertions.assertion10.statement[ '1' ]()
+        console.log( Assertions.assertion10.statement[ '1' ].message )
+        console.log( 'returned response -> ', await  response1 )
+    },
+    
 }
 
 process.argv.splice( 0, 2 )
 
 if(  process.argv.length > 0 ){
     
-    await Assertions[process.argv]()
+    await Assertions[ process.argv ]()
     AssertionEvent.emit( 'end' )
     
 }else {
     
     for( const assertion in Assertions )
-        await Assertions[assertion]()
+        await Assertions[ assertion ]()
     
     AssertionEvent.emit( 'end' )
 }
