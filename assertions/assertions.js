@@ -432,6 +432,39 @@ const Assertions = {
         console.log( 'returned response -> ', await  response1 )
     },
     
+    assertion11 : async () => {
+        console.log( '__________________________________________________________________________' )
+        
+        console.log( '\x1b[31m Assertions is null', 11, '\x1b[0m' )
+        console.log( '    \x1b[31m statement is null object ', 0, '\x1b[0m' )
+        
+        let response
+        Assertions.assertion11.statement = {
+            
+            '0' : async ( ) => {
+                console.log( '    \x1b[31m executing ', 0, '\x1b[0m\n' )
+                
+                response = await object_( null )
+
+                try{
+                    ok( response === false, 'something wrong with the statement asserted' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion11.statement[ '0' ].message = 'test concluded'
+                
+                return response
+            },
+            
+        }
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response0 = await Assertions.assertion11.statement[ '0' ]()
+        console.log( Assertions.assertion11.statement[ '0' ].message )
+        console.log( 'returned response -> ', await  response0 )
+    },
+    
 }
 
 process.argv.splice( 0, 2 )

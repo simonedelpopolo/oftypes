@@ -31,7 +31,8 @@
     "assertion7": "cd ./assertions/ && node ./assertions.js assertion7",
     "assertion8": "cd ./assertions/ && node ./assertions.js assertion8",
     "assertion9": "cd ./assertions/ && node ./assertions.js assertion9",
-    "assertion10": "cd ./assertions/ && node ./assertions.js assertion10"
+    "assertion10": "cd ./assertions/ && node ./assertions.js assertion10",
+    "assertion11": "cd ./assertions/ && node ./assertions.js assertion11"
   },
   "devDependencies": {
     "eslint": "^8.4.1",

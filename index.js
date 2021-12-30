@@ -154,6 +154,8 @@ Object.defineProperty( oftypes, 'function_', {
     value: async function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
         if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
+    
+        if ( await null_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
         let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
@@ -188,6 +190,8 @@ Object.defineProperty( oftypes, object__, {
         if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
         if ( await function_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
+    
+        if ( await null_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
         if ( await array_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
