@@ -3,7 +3,15 @@ import * as Module from 'module'
 const oftypes = Object.create( Module )
 export default oftypes
 
-const __methods = {
+// A todo working on promise checker
+// eslint-disable-next-line no-unused-vars
+const promise = {
+    promise_: function ( variable ) {
+        return variable.constructor.name === 'Promise' || variable.constructor.name === 'AsyncFunction' ? 'Promise' : false
+    },
+}
+
+const oftypes__ = {
     
     /**
      * It handles the type checking from the function types. If that fails, it rejects with TypeError.
@@ -11,7 +19,7 @@ const __methods = {
      * @param {string} types_rejection - .
      * @returns {Promise<unknown>}
      */
-    argument: function argument( types_rejection ) {
+    error: function argument( types_rejection ) {
         return new Promise( ( resolve, reject ) => {
             reject( new TypeError( types_rejection ) )
         } )
@@ -62,42 +70,44 @@ const __methods = {
     },
 }
 
-/**
- * The undefined_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @example
- *     let variable
- *
- *     console.log( await oftype.undefined_( variable, {
- *       true:'the variable is undefined',
- *       false:'variable is set'
- *     }))
- *
- *     // yield: the variable is undefined
- * @returns {Promise | PromiseFulfilledResult<any> | PromiseRejectedResult<TypeError>}
- */
-Object.defineProperty( oftypes, 'undefined_', {
+const undefined__ = Symbol( 'The undefined_ checking function.' )
+Object.defineProperty( oftypes, undefined__, {
     enumerable: true,
     writable: false,
     configurable: false,
+    /**
+     * The undefined_ checking function.
+     *
+     * @param {any} variable - Variable to check for.
+     * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
+     * @param {boolean=} payback - If true it will send back the variable value.
+     * @example
+     *     let variable
+     *
+     *     console.log( await oftype.undefined_( variable, {
+     *       true:'the variable is undefined',
+     *       false:'variable is set'
+     *     }))
+     *
+     *     // yield: the variable is undefined
+     * @returns {Promise | PromiseFulfilledResult<any> | PromiseRejectedResult<TypeError>}
+     */
     value: function undefined_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             typeof variable === 'undefined' ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         } )
     },
 } )
 
-Object.defineProperty( oftypes, 'array_', {
+const array__ = Symbol( 'The array_ checking function.' )
+Object.defineProperty( oftypes, array__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -112,17 +122,17 @@ Object.defineProperty( oftypes, 'array_', {
      */
     value: async function array_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             Array.isArray( variable ) ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -143,23 +153,24 @@ Object.defineProperty( oftypes, 'function_', {
      */
     value: async function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             variable.constructor && variable.call && variable.apply ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
 } )
 
-Object.defineProperty( oftypes, 'object_', {
+const object__ = Symbol( 'The object_ checking function.' )
+Object.defineProperty( oftypes, object__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -174,21 +185,21 @@ Object.defineProperty( oftypes, 'object_', {
      */
     value: async function object_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        if ( await function_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await function_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        if ( await array_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await array_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'object' ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -209,17 +220,17 @@ Object.defineProperty( oftypes, 'string_', {
      */
     value: async function string_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'string' ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -240,17 +251,17 @@ Object.defineProperty( oftypes, 'number_', {
      */
     value: async function number_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'number' ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -271,17 +282,17 @@ Object.defineProperty( oftypes, 'null_', {
      */
     value: async function null_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             variable === null ?
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -302,18 +313,18 @@ Object.defineProperty( oftypes, 'boolean_', {
      */
     value: async function boolean_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'boolean' ?
-            
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -334,18 +345,18 @@ Object.defineProperty( oftypes, 'symbol_', {
      */
     value: async function symbol_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'symbol' ?
-            
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -366,18 +377,18 @@ Object.defineProperty( oftypes, 'bigint_', {
      */
     value: async function bigint_( variable, resolvers = { true: true, false: false }, payback = false ) {
         
-        if ( await undefined_( variable ) === true ) return ( __methods.fulfilled( payback, resolvers.false, variable ) )
+        if ( await undefined_( variable ) === true ) return ( oftypes__.fulfilled( payback, resolvers.false, variable ) )
         
-        let types = __methods.types( resolvers, payback )
+        let types = oftypes__.types( resolvers, payback )
         if ( types !== true )
-            return __methods.argument( types )
+            return oftypes__.error( types )
         
         return new Promise( ( resolve ) => {
             
             typeof variable === 'bigint' ?
-            
-                resolve( __methods.fulfilled( payback, resolvers.true, variable ) ) :
-                resolve( __methods.fulfilled( payback, resolvers.false, variable ) )
+                
+                resolve( oftypes__.fulfilled( payback, resolvers.true, variable ) ) :
+                resolve( oftypes__.fulfilled( payback, resolvers.false, variable ) )
             
         } )
     },
@@ -402,7 +413,7 @@ Object.defineProperty( oftypes, 'bigint_', {
  */
 export function undefined_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.undefined_( variable, resolvers, payback )
+    return oftypes[ undefined__ ]( variable, resolvers, payback )
 }
 
 /**
@@ -415,7 +426,7 @@ export function undefined_( variable, resolvers = { true: true, false: false }, 
  */
 export function array_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.array_( variable, resolvers, payback )
+    return oftypes[ array__ ]( variable, resolvers, payback )
 }
 
 /**
@@ -441,7 +452,7 @@ export function function_( variable, resolvers = { true: true, false: false }, p
  */
 export function object_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.object_( variable, resolvers, payback )
+    return oftypes[ object__ ]( variable, resolvers, payback )
 }
 
 /**
@@ -510,7 +521,7 @@ export function symbol_( variable, resolvers = { true: true, false: false }, pay
 }
 
 /**
- * The bygint_ checking function.
+ * The bigint_ checking function.
  *
  * @param {any} variable - Variable to check for.
  * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
