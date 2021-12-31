@@ -106,7 +106,7 @@ Object.defineProperty( oftypes, undefined__, {
     },
 } )
 
-const array__ = Symbol( 'The array_ checking function.' )
+const array__ = Symbol( 'Function array_(variable, resolvers, payback):any' )
 Object.defineProperty( oftypes, array__, {
     enumerable: true,
     writable: false,
