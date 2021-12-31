@@ -306,7 +306,8 @@ Object.defineProperty( oftypes, null__, {
     },
 } )
 
-Object.defineProperty( oftypes, 'boolean_', {
+const boolean__ = Symbol( 'Function boolean_(variable, resolvers, payback):any' )
+Object.defineProperty( oftypes, boolean__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -512,7 +513,7 @@ export function null_( variable, resolvers = { true: true, false: false }, payba
  */
 export function boolean_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.boolean_( variable, resolvers, payback )
+    return oftypes[ boolean__ ]( variable, resolvers, payback )
 }
 
 /**
