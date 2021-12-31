@@ -70,7 +70,7 @@ const oftypes__ = {
     },
 }
 
-const undefined__ = Symbol( 'The undefined_ checking function.' )
+const undefined__ = Symbol( 'Function undefined_(variable, resolvers, payback):any' )
 Object.defineProperty( oftypes, undefined__, {
     enumerable: true,
     writable: false,
