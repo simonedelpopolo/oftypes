@@ -372,7 +372,8 @@ Object.defineProperty( oftypes, symbol__, {
     },
 } )
 
-Object.defineProperty( oftypes, 'bigint_', {
+const bigint__ = Symbol( 'Function bigint_(variable, resolvers, payback):any' )
+Object.defineProperty( oftypes, bigint__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -540,7 +541,7 @@ export function symbol_( variable, resolvers = { true: true, false: false }, pay
  */
 export function bigint_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.bigint_( variable, resolvers, payback )
+    return oftypes[ bigint__ ]( variable, resolvers, payback )
 }
 
 /**
