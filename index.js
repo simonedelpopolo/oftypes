@@ -210,7 +210,8 @@ Object.defineProperty( oftypes, object__, {
     },
 } )
 
-Object.defineProperty( oftypes, 'string_', {
+const string__ = Symbol( 'Function string_(variable, resolvers, payback):any' )
+Object.defineProperty( oftypes, string__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -470,7 +471,7 @@ export function object_( variable, resolvers = { true: true, false: false }, pay
  */
 export function string_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.string_( variable, resolvers, payback )
+    return oftypes[ string__ ]( variable, resolvers, payback )
 }
 
 /**
