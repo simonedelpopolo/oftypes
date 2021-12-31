@@ -274,7 +274,8 @@ Object.defineProperty( oftypes, number__, {
     },
 } )
 
-Object.defineProperty( oftypes, 'null_', {
+const null__ = Symbol( 'Function null_(variable, resolvers, payback):any' )
+Object.defineProperty( oftypes, null__, {
     enumerable: true,
     writable: false,
     configurable: false,
@@ -498,7 +499,7 @@ export function number_( variable, resolvers = { true: true, false: false }, pay
  */
 export function null_( variable, resolvers = { true: true, false: false }, payback = false ) {
     
-    return oftypes.null_( variable, resolvers, payback )
+    return oftypes[ null__ ]( variable, resolvers, payback )
 }
 
 /**
