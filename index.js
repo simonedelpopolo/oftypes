@@ -172,7 +172,7 @@ Object.defineProperty( oftypes, function__, {
     },
 } )
 
-const object__ = Symbol( 'The object_ checking function.' )
+const object__ = Symbol( 'Function object_(variable, resolvers, payback):any' )
 Object.defineProperty( oftypes, object__, {
     enumerable: true,
     writable: false,
