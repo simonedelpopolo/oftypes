@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Configurable typeof responses. All the primitives are covered [string, number, bigint, boolean, undefined, symbol, null]. Function and Array ( STD built-in objects ) are differentiated from Object. Javascript ESM module.",
   "type": "module",
   "engines": {
