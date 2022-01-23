@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "0.3.0-beta",
+  "version": "0.3.1-beta",
   "description": "Configurable typeof responses. All the primitives are covered [string, number, bigint, boolean, undefined, symbol, null]. Function and Array ( STD built-in objects ) are differentiated from Object. Javascript ESM module.",
   "type": "module",
   "engines": {
@@ -32,7 +32,8 @@
     "assertion8": "cd ./assertions/ && node ./assertions.js assertion8",
     "assertion9": "cd ./assertions/ && node ./assertions.js assertion9",
     "assertion10": "cd ./assertions/ && node ./assertions.js assertion10",
-    "assertion11": "cd ./assertions/ && node ./assertions.js assertion11"
+    "assertion11": "cd ./assertions/ && node ./assertions.js assertion11",
+    "assertion12": "cd ./assertions/ && node ./assertions.js assertion12"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
