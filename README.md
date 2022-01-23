@@ -6,10 +6,9 @@ ___
 
 [Standard built-in object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
 
-![GitHub top language](https://img.shields.io/github/languages/top/simonedelpopolo/oftypes) ![NPM](https://img.shields.io/npm/l/oftypes) ![npm](https://img.shields.io/npm/dw/oftypes)
-
 ###### Javascript ESM module.
 
+> ℹ README.md for branch v0.3.0
 ___
 
 #### [Functions & Examples](#functions-&-examples)
@@ -260,6 +259,30 @@ const payback = true
 console.log( await string_( variable, resolvers, payback ) )
 
 // yield ['it is a number!', 10]
+```
+
+```js
+import { number_ } from 'oftypes'
+
+const variable = '10'
+const resolvers = { true: 'it is a number!', false: 'it is not a number' }
+const payback = true
+
+console.log( await string_( variable, resolvers, payback ) )
+
+// yield ['it is a number!', 10]
+```
+
+```js
+import { number_ } from 'oftypes'
+
+const variable = 'folks'
+const resolvers = { true: 'it is a number!', false: 'it is not a number' }
+const payback = true
+
+console.log( await string_( variable, resolvers, payback ) )
+
+// yield ['it is not a number!', 'folks']
 ```
 
 ___
