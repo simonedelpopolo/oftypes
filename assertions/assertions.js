@@ -1,7 +1,7 @@
 console.time( 'assertions finished ' )
 import { EventEmitter } from 'events'
 import { stat } from 'fs/promises'
-import { array_, bigint_, boolean_, null_, object_, string_, symbol_ } from '../index.js'
+import { array_, bigint_, boolean_, null_, number_, object_, string_, symbol_ } from '../index.js'
 import { deepEqual, ok } from 'assert'
 
 const AssertionEvent = new EventEmitter()
@@ -245,7 +245,7 @@ const Assertions = {
         
         deepEqual( await bigint_( variable_not_bigint ), expected_not_bigint )
         
-        console.log( 'Test passed, the variable is NOT oftype symbol!' )
+        console.log( 'Test passed, the variable is NOT oftype bigint!' )
         console.log( 'Given variable -> ', variable_not_bigint )
         console.log( 'Expected result -> ', expected_not_bigint )
         
@@ -463,6 +463,90 @@ const Assertions = {
         const response0 = await Assertions.assertion11.statement[ '0' ]()
         console.log( Assertions.assertion11.statement[ '0' ].message )
         console.log( 'returned response -> ', await  response0 )
+    },
+    
+    assertion12 : async () => {
+        console.log( '__________________________________________________________________________' )
+        
+        console.log( '\x1b[31m Assertions is number', 12, '\x1b[0m' )
+        console.log( '    \x1b[31m statement is number ', 0, '\x1b[0m' )
+        console.log( '    \x1b[31m statement is number ', 1, '\x1b[0m' )
+        console.log( '    \x1b[31m statement is NOT number ', 2, '\x1b[0m' )
+        
+        let response
+        Assertions.assertion12.statement = {
+            
+            '0' : async ( ) => {
+                console.log( '    \x1b[31m executing ', 0, '\x1b[0m\n' )
+                
+                const variable = '10'
+                const expected = 10
+                
+                response = await number_( variable, undefined, true )
+                
+                try{
+                    deepEqual( response[ 1 ], expected, 'something wrong with the statement asserted' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion12.statement[ '0' ].message = 'test concluded'
+                
+                return response
+            },
+            '1' : async ( ) => {
+                console.log( '    \x1b[31m executing ', 1, '\x1b[0m\n' )
+                
+                const variable = 10
+                const expected = 10
+                
+                response = await number_( variable, undefined, true )
+                
+                try{
+                    deepEqual( response[ 1 ], expected, 'something wrong with the statement asserted' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion12.statement[ '1' ].message = 'test concluded'
+                
+                return response
+            },
+            '2' : async ( ) => {
+                console.log( '    \x1b[31m executing ', 2, '\x1b[0m\n' )
+                
+                const variable = 'hello'
+                const expected = [ false, 'hello' ]
+                
+                response = await number_( variable, undefined, true )
+                
+                try{
+                    deepEqual( response, expected, 'something wrong with the statement asserted' )
+                }catch ( error ) {
+                    response = error
+                }
+                
+                Assertions.assertion12.statement[ '2' ].message = 'test concluded'
+                
+                return response
+            },
+            
+        }
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response0 = await Assertions.assertion12.statement[ '0' ]()
+        console.log( Assertions.assertion12.statement[ '0' ].message )
+        console.log( 'returned response -> ', await  response0 )
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response1 = await Assertions.assertion12.statement[ '1' ]()
+        console.log( Assertions.assertion12.statement[ '1' ].message )
+        console.log( 'returned response -> ', await  response1 )
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const response2 = await Assertions.assertion12.statement[ '2' ]()
+        console.log( Assertions.assertion12.statement[ '2' ].message )
+        console.log( 'returned response -> ', await  response2 )
     },
     
 }
