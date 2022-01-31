@@ -2,7 +2,7 @@ name: Node.js Tests and npmjs publishing
 
 on:
   push:
-    branches: [ v0.3.0 ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -16,6 +16,6 @@ jobs:
       - run: npm install -g npm
       - run: npm install
       - run: npm run assertions
-      - run: npm publish --tag beta
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
