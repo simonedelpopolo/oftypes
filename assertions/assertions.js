@@ -1,57 +1,146 @@
-console.time( 'assertions finished ' )
+const consoleTimeMessage = '|               \x1b[33massertion finished\x1b[0m                           |'
+console.time( consoleTimeMessage )
 import { EventEmitter } from 'events'
 import { stat } from 'fs/promises'
-import { array_, bigint_, boolean_, null_, number_, object_, string_, symbol_ } from '../index.js'
+import { array_, bigint_, boolean_, buffer_, null_, number_, object_, promise_, string_, symbol_ } from '../index.js'
 import { deepEqual, ok } from 'assert'
 
 const AssertionEvent = new EventEmitter()
-
+console.log( ' --------------------------------------------------------------------------' )
+console.log( '|               \x1b[33massertion started\x1b[0m', new Date(), '                |' )
+console.log( ' --------------------------------------------------------------------------' )
 AssertionEvent.on( 'end', () => {
-    console.log( '__________________________________________________________________________' )
+    
+    console.log( '___________________________________________________________________________' )
     console.log()
-    console.timeEnd( 'assertions finished ' )
+    console.log( ' --------------------------------------------------------------------------' )
+    console.timeEnd( consoleTimeMessage )
+    console.log( ' --------------------------------------------------------------------------' )
+    
+    console.log()
+    console.log( '---------------------------------------------------------------------------' )
+    if( status === 'failed' )
+        process.exit( 1 )
 } )
+
+let status
 
 const Assertions = {
     
     assertion0 : async () => {
-        
+    
+        let test_results
+        let failed = false
+    
         console.log( '__________________________________________________________________________' )
-        
-        console.log( ' \x1b[31m Assertion number', 0, '\x1b[0m' )
-        console.log( '\x1b[31m It checks if the variable is of type string', '\x1b[0m' )
-        
+    
+        console.log( '\x1b[32mthe variable is of type string', '\x1b[31massertion ->', 0, '\x1b[0m' )
+        console.log( '  \x1b[32mlisting statements', '\x1b[0m' )
+        console.log( '    \x1b[32mthe variable is oftypes<string>', '\x1b[31mstatement ->', 0, '\x1b[0m' )
+        console.log( '    \x1b[32mthe variable is NOT oftypes<string>', '\x1b[31mstatement ->', 1, '\x1b[0m' )
+    
+        Assertions.assertion0.statement = {
+            '0' : async () => {
+                console.log( '    \x1b[31m executing statement -> ', 0, '\x1b[0m\n' )
+                const expected = true
+                const variable = 'hello folks'
+    
+                try {
+                    ok( await string_( variable ) === expected, 'something went wrong' )
+                    test_results = true
+                }catch ( error ) {
+                    test_results = error
+                    failed = true
+                }
+    
+                status = failed === true ? 'failed' : 'concluded'
+                Assertions.assertion0.statement[ '0' ].message = `test ${status} -> the variable is oftypes<string>`
+                
+                let results = test_results
+                
+                return { results, variable }
+            },
+            
+            '1': async () => {
+                
+                console.log( '    \x1b[31m executing statement -> ', 1, '\x1b[0m\n' )
+                const expected = [ false, 10 ]
+                const variable1 = 10
+    
+                try {
+                    deepEqual( await string_( variable1, undefined, true ), expected, 'something went wrong!' )
+                    test_results = true
+                }catch ( error ) {
+                    test_results = error
+                    failed = true
+                }
+    
+                status = failed === true ? 'failed' : 'concluded'
+                Assertions.assertion0.statement[ '1' ].message = `test ${status} -> the variable is oftypes<string>`
+    
+                let results1 = test_results
+    
+                return { results1, variable1 }
+            }
+        }
+    
         console.log( '---------------------------------------------------------------------------' )
-        
-        const expected = true
-        const variable = 'hello folks'
-        
-        ok( await string_( variable ) === expected )
-        
-        console.log( 'Test passed, the variable is type of string!' )
-        console.log( 'Given variable -> ', variable )
-        console.log( 'Expected result -> ', expected )
+        const { results, variable } = await Assertions.assertion0.statement[ '0' ]()
+        console.log( '\x1b[32m\nreturn ⬇︎', '\x1b[0m\n' )
+        console.log( 'returned response -> ', results )
+        console.log( 'given variable -> ', variable )
+        console.log( Assertions.assertion0.statement[ '0' ].message )
+    
+        console.log( '---------------------------------------------------------------------------' )
+        const { results1, variable1 } = await Assertions.assertion0.statement[ '1' ]()
+        console.log( '\x1b[32m\nreturn ⬇︎', '\x1b[0m\n' )
+        console.log( 'returned response -> ', results1 )
+        console.log( 'given variable -> ', variable1 )
+        console.log( Assertions.assertion0.statement[ '1' ].message )
         
     },
     
     assertion1 : async () => {
         
+        let test_results
+        let failed = false
+    
         console.log( '__________________________________________________________________________' )
-        
-        const expected = [ false, 10 ]
-        const variable = 10
-        
-        console.log( ' \x1b[31m Assertion number', 1, '\x1b[0m' )
-        console.log( '\x1b[31m It checks if the variable is of type string', '\x1b[0m' )
-        
+    
+        console.log( '\x1b[32mthe variable is of type buffer', '\x1b[31massertion ->', 0, '\x1b[0m' )
+        console.log( '  \x1b[32mlisting statements', '\x1b[0m' )
+        console.log( '    \x1b[32mthe variable is oftypes<Buffer>', '\x1b[31mstatement ->', 0, '\x1b[0m' )
+    
+        Assertions.assertion1.statement = {
+            '0' : async () => {
+                
+                console.log( '    \x1b[31m executing statement -> ', 0, '\x1b[0m\n' )
+                const expected = true
+                const variable = Buffer.from( 'hello folks' )
+            
+                try {
+                    ok( await buffer_( variable ) === expected, 'something went wrong' )
+                    test_results = true
+                }catch ( error ) {
+                    test_results = error
+                    failed = true
+                }
+            
+                status = failed === true ? 'failed' : 'concluded'
+                Assertions.assertion1.statement[ '0' ].message = `test ${status} -> the variable is oftypes<Buffer>`
+            
+                let results = test_results
+            
+                return { results, variable }
+            },
+        }
+    
         console.log( '---------------------------------------------------------------------------' )
-        
-        deepEqual( await string_( variable, undefined, true ), expected )
-        
-        console.log( 'Test passed, the variable is NOT of type string!' )
-        console.log( 'Given variable -> ', variable )
-        console.log( 'Expected result -> ', expected )
-        
+        const { results, variable } = await Assertions.assertion1.statement[ '0' ]()
+        console.log( '\x1b[32m\nreturn ⬇︎', '\x1b[0m\n' )
+        console.log( 'returned response -> ', results )
+        console.log( 'given variable -> ', variable )
+        console.log( Assertions.assertion1.statement[ '0' ].message )
     },
     
     assertion2 : async () => {
@@ -547,6 +636,48 @@ const Assertions = {
         const response2 = await Assertions.assertion12.statement[ '2' ]()
         console.log( Assertions.assertion12.statement[ '2' ].message )
         console.log( 'returned response -> ', await  response2 )
+    },
+    assertion13 : async () => {
+        
+        let test_results
+        let failed = false
+        
+        console.log( '__________________________________________________________________________' )
+        
+        console.log( '\x1b[32mthe variable is of type promise', '\x1b[31massertion ->', 0, '\x1b[0m' )
+        console.log( '  \x1b[32mlisting statements', '\x1b[0m' )
+        console.log( '    \x1b[32mthe variable is oftypes<Promise>', '\x1b[31mstatement ->', 0, '\x1b[0m' )
+        
+        Assertions.assertion13.statement = {
+            '0' : async () => {
+                
+                console.log( '    \x1b[31m executing statement -> ', 0, '\x1b[0m\n' )
+                const expected = true
+                const variable = async () => {}
+                
+                try {
+                    ok( await promise_( variable ) === expected, 'something went wrong' )
+                    test_results = true
+                }catch ( error ) {
+                    test_results = error
+                    failed = true
+                }
+                
+                status = failed === true ? 'failed' : 'concluded'
+                Assertions.assertion13.statement[ '0' ].message = `test ${status} -> the variable is oftypes<Promise>`
+                
+                let results = test_results
+                
+                return { results, variable }
+            },
+        }
+        
+        console.log( '---------------------------------------------------------------------------' )
+        const { results, variable } = await Assertions.assertion13.statement[ '0' ]()
+        console.log( '\x1b[32m\nreturn ⬇︎', '\x1b[0m\n' )
+        console.log( 'returned response -> ', results )
+        console.log( 'given variable -> ', variable )
+        console.log( Assertions.assertion13.statement[ '0' ].message )
     },
     
 }
