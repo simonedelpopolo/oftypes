@@ -208,20 +208,3 @@ export function undefined_( variable, resolvers = { true: true, false: false }, 
     
     return undefined__( variable, resolvers, payback )
 }
-
-// The variable is well-known type of {number}
-const variable = 10
-
-// The resolvers Object
-// Oftype returns a {string} with the type in this case Number
-// So we set the property name of the resolvers to Number
-// And we set the returned string to be 'allright'
-const resolvers = {
-    Number: 'allright'
-}
-
-// This will return the value from the resolvers object and the variable itself into an array
-const payback = true
-
-console.log( await oftype_( variable, resolvers, payback ) )
-
