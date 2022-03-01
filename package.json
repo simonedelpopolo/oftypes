@@ -1,7 +1,7 @@
 {
   "name": "oftypes",
-  "version": "0.4.4",
-  "description": "Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null]. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESM module.",
+  "version": "0.5.4",
+  "description": "Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null, NaN]. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.",
   "type": "module",
   "engines": {
     "node": ">=v16.13.1 <17"
@@ -32,8 +32,9 @@
     "assertion13": "cd ./assertions/ && node ./assertions.js assertion13"
   },
   "devDependencies": {
-    "eslint": "^8.4.1",
-    "eslint-plugin-jsdoc": "^37.2.2"
+    "eslint": "^8.10.0",
+    "eslint-plugin-jsdoc": "^37.9.5",
+    "trythistrythat": "^0.0.4"
   },
   "publishConfig": {
     "access": "public"
@@ -49,13 +50,15 @@
   },
   "keywords": [
     "type checking",
+    "typeof",
+    "NaN",
     "Object",
     "Symbol",
     "null",
     "Function",
     "undefined",
-    "faster",
-    "utility",
+    "Promise",
+    "AsyncFunction",
     "Array",
     "String",
     "Number",

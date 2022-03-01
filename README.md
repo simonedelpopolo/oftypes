@@ -2,7 +2,7 @@
 
 ___
 
-###### Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null]. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESM module.
+###### Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESM module.
 
 [Standard built-in object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
 
@@ -12,18 +12,20 @@ ___
 
 #### [Functions & Examples](#functions-&-examples)
 
-- [The array_ checking function.](#the-array_-checking-function)
-- [The bigint_ checking function.](#the-bigint_-checking-function)
-- [The boolean_ checking function.](#the-boolean_-checking-function)
-- [The buffer_ checking function.](#the-buffer_-checking-function)
-- [The function_ checking function.](#the-function_-checking-function)
-- [The null_ checking function.](#the-null_-checking-function)
-- [The number_ checking function.](#the-number_-checking-function)
-- [The object_ checking function.](#the-object_-checking-function)
-- [The promise_ checking function.](#the-promise_-checking-function)
-- [The string_ checking function.](#the-string_-checking-function)
-- [The symbol_ checking function.](#the-symbol_-checking-function)
-- [The undefined_ checking function.](#the-undefined_-checking-function)
+- [oftype_ enhanced typeof](#oftype_-enhanced-typeof)
+- [array_ type check.](#array_-type-check)
+- [bigint_type check.](#bigint_-type-check)
+- [boolean_type check.](#boolean_-type-check)
+- [buffer_type check.](#buffer_-type-check)
+- [function_type check.](#function_-type-check)
+- [nan_type check.](#nan_-type-check)
+- [null_type check.](#null_-type-check)
+- [number_type check.](#number_-type-check)
+- [object_type check.](#object_-type-check)
+- [promise_type check.](#promise_-type-check)
+- [string_type check.](#string_-type-check)
+- [symbol_type check.](#symbol_-type-check)
+- [undefined_type check.](#undefined_-type-check)
 ___
 
 ### Installation
@@ -38,7 +40,107 @@ ___
 
 ___
 
-- #### The array_ checking function.
+- #### oftype_ enhanced typeof.
+
+#### oftype\_(variable, [resolvers], [payback]) ⇒ `Promise<string|any>|string|any`
+
+**Kind**: global function
+
+| Param       | Type      | Default                  | Description                                   |
+|-------------|-----------|--------------------------|-----------------------------------------------|
+| variable    | `any`     |                          | Variable to check for.                        |
+| [resolvers] | `Object`  | `{[unknown:string]:any}` | Default is set to undefined.                  |
+| [payback]   | `boolean` | `false`                  | If true it will send back the variable value. |
+
+> ℹ returned values:
+
+- Array
+- bigint
+- Boolean
+- Buffer
+- Function
+- null
+- Number
+- Object
+- Promise
+- String
+- Symbol
+- undefined
+
+The returned values can be set as property name of the resolvers' argument Object
+The value of the property of the resolvers' object can be any type.
+
+**Example**
+
+We are expecting a variable to be type of {number}
+
+```javascript
+import { oftype_ } from 'oftypes'
+
+// the variable is well-known type of {number}
+const variable = 10 
+
+/**
+ * the resolvers Object
+ *
+ * oftype_ returns a Promise<string> of the type, in this case Number.
+ * so, we set the property name of the resolvers to Number
+ * and we set the value of the property to 'allright'
+ * doing so the Promise<string> will be 'allright' and not Number
+ * 
+ * ℹ notice that the value of the property, in this case Number, could be anything, also a function.
+ * ℹ notice that the property name can be wrapped into sigle quotes or not
+ */
+const resolvers = {
+    Number: 'allright'
+}
+
+// this will return the value from the resolvers object and the variable itself into an array
+const payback = true
+
+console.log( await oftype_(variable, resolvers, payback))
+
+// Yields -> [ 'allright', 10 ]
+```
+
+
+**Example**
+
+```js
+import { oftype_ } from 'oftypes'
+
+const variable = [ 'array', 'of', 'string' ]
+const resolvers = { 'Array': 'it is an Array' }
+
+console.log( await oftype_( variable, resolvers ) )
+
+// Yield -> it is an Array
+```
+
+```js
+import { oftype_ } from 'oftypes'
+
+const variable = async ()=>{}
+
+console.log( await oftype_( variable ) )
+
+// Yield -> Promise
+```
+
+```js
+import { oftype_ } from 'oftypes'
+
+const variable = async ()=>{}
+const resolvers = { Symbol: 'it is a Symbol' }
+
+console.log( await oftype_( variable, resolvers ) )
+
+// Yield -> undefined
+```
+
+___
+
+- #### array_ type check.
 
 #### array\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -78,7 +180,7 @@ console.log( await array_( variable, resolvers, payback ) )
 
 ___
 
-- #### The bigint_ checking function.
+- #### bigint_ type check.
 
 #### bigint\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -111,7 +213,7 @@ console.log( await bigint_( variable ) )
 ```
 ___
 
-- #### The boolean_ checking function.
+- #### boolean_ type check.
 
 #### boolean\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -150,7 +252,7 @@ console.log( await boolean_( variable, resolvers, payback ) )
 ```
 ___
 
-- #### The buffer_ checking function.
+- #### buffer_ type check.
 
 #### buffer\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -189,7 +291,7 @@ console.log( await buffer_( variable, resolvers, payback ) )
 ```
 ___
 
-- #### The function_ checking function.
+- #### function_ type check.
 
 #### function\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -230,7 +332,47 @@ resolved[ 1 ]()
 
 ___
 
-- #### The null_ checking function.
+- #### nan_ type check.
+
+#### nan\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+
+**Kind**: global function
+
+| Param       | Type      | Default                   | Description                                                   |
+|-------------|-----------|---------------------------|---------------------------------------------------------------|
+| variable    | `any`     |                           | Variable to check for.                                        |
+| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
+| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+
+**Example**
+
+```js
+import { nan_ } from 'oftypes'
+
+const variable = 10
+const resolvers = { true: 'it is NaN!', false: 'it is not NaN' }
+const payback = true
+
+console.log( await nan_( variable, resolvers, payback ) )
+
+// yield ['it is not NaN!', 10]
+```
+
+```js
+import { nan_ } from 'oftypes'
+
+const variable = { object: null }
+const resolvers = { true: 'it is NaN!', false: 'it is not NaN' }
+const payback = true
+
+console.log( await nan_( variable.object, resolvers, payback ) )
+
+// yield ['it is NaN!', { object: null }]
+```
+
+___
+
+- #### null_ type check.
 
 #### null\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -270,7 +412,7 @@ console.log( await null_( variable.object, resolvers, payback ) )
 
 ___
 
-- #### The number_ checking function.
+- #### number_ type check.
 
 #### number\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -322,7 +464,7 @@ console.log( await string_( variable, resolvers, payback ) )
 
 ___
 
-- #### The object_ checking function.
+- #### object_ type check.
 
 #### object\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -362,7 +504,7 @@ console.log( await object_( variable, resolvers, payback ) )
 
 ___
 
-- #### The promise_ checking function.
+- #### promise_ type check.
 
 #### promise\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -388,7 +530,7 @@ console.log( await promise_( asyncFunction ) )
 
 ___
 
-- #### The string_ checking function.
+- #### string_ type check.
 
 #### string\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -441,7 +583,7 @@ else
 
 ___
 
-- #### The symbol_ checking function.
+- #### symbol_ type check.
 
 #### symbol\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 
@@ -475,7 +617,7 @@ console.log( await symbol_( variable ) )
 
 ___
 
-- #### The undefined_ checking function.
+- #### undefined_ type check.
 
 #### undefined\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
 

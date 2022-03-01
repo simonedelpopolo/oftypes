@@ -491,8 +491,8 @@ const Assertions = {
         
                 const obj = { hello:'ciao' }
                 const arr = [ { hello:'ciao' } ]
-        
-                if( await object_( obj ) === true && await array_( arr ) === true )
+                
+                if( ( await object_( obj ) === true ) && ( await array_( arr ) === true ) )
                     response = 'caught'
                 else
                     response = 'not caught'
@@ -637,6 +637,7 @@ const Assertions = {
         console.log( Assertions.assertion12.statement[ '2' ].message )
         console.log( 'returned response -> ', await  response2 )
     },
+    
     assertion13 : async () => {
         
         let test_results
