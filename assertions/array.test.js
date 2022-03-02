@@ -21,19 +21,25 @@ export default async () => {
         
     } )
     
-    if( error instanceof Error ) failed( true )
+    if( error instanceof Error ) {
+        failed( true )
+        console.log( error.message.red() )
+    }else
+        console.log( 'test passed'.green() )
+    
+    console.log()
     
     await separator()
     
-    await describe( 'variable is an array of {number[]} -> [ 5 ]' )
-    await describe( 'returns [ true, [ 5 ] ]'.yellow() )
+    await describe( 'variable is an object -> { object: null }' )
+    await describe( 'returns [ false, { object: null } ]'.yellow() )
     console.log()
     
     error = await deeeeepStrictEqual( async () => {
         
         return {
-            expected: [ true, [ 5 ] ],
-            actual: await array_( [ 5 ], undefined, true ),
+            expected: [ false, { object: null } ],
+            actual: await array_( { object: null }, undefined, true ),
             error: 'something went wrong deeeeepStrictEqual'
         }
         
