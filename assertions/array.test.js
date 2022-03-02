@@ -42,10 +42,8 @@ export default async () => {
     if( error instanceof Error ) {
         failed( true )
         console.log( error.message.red() )
-        end_test()
-    }else{
-        
+    }else
         console.log( 'test passed'.green() )
-        end_test()
-    }
+    
+    end_test()
 }
