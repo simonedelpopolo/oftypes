@@ -16,10 +16,12 @@ export default async () => {
         return {
             expected: true,
             actual: await array_( [ 5 ] ),
-            error: 'something went wrong'
+            error: 'something went wrong oki test'
         }
         
     } )
+    
+    if( error instanceof Error ) failed( true )
     
     await separator()
     
@@ -32,7 +34,7 @@ export default async () => {
         return {
             expected: [ true, [ 5 ] ],
             actual: await array_( [ 5 ], undefined, true ),
-            error: 'something went wrong'
+            error: 'something went wrong deeeeepStrictEqual'
         }
         
     } )
