@@ -1,5 +1,5 @@
 import { array_ } from '../index.js'
-import { deeeeepStrictEqual, describe, end_test, failed, oki, separator } from 'trythistrythat'
+import { deeeeepStrictEqual, describe, end_test, failed, id, oki, separator } from 'trythistrythat'
 
 export default async () => {
     await describe( 'UNIT test for Object [ oftypes.array_ ]' )
@@ -51,5 +51,5 @@ export default async () => {
     }else
         console.log( 'test passed'.green() )
     
-    end_test()
+    end_test( id() )
 }

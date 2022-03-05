@@ -208,3 +208,5 @@ export function undefined_( variable, resolvers = { true: true, false: false }, 
     
     return undefined__( variable, resolvers, payback )
 }
+
+Object.freeze( oftypes )

@@ -180,7 +180,7 @@ const Assertions = {
         
         const resolvers = {
             true: async () => {
-                return stat( '../index.js' ).then( stat => stat )
+                return stat( './index.js' ).then( stat => stat )
                     .catch( error => error )
             }, false: 'it is not a string',
         }
