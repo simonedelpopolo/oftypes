@@ -2,30 +2,38 @@
 
 ___
 
-###### Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESM module.
+###### Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.
 
 [Standard built-in object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
 
-###### Javascript ESM module.
+**Javascript ESModule.**
 
 ___
 
-#### [Functions & Examples](#functions-&-examples)
+### Index of Contents
 
-- [oftype_ enhanced typeof](#oftype_-enhanced-typeof)
-- [array_ type check.](#array_-type-check)
-- [bigint_type check.](#bigint_-type-check)
-- [boolean_type check.](#boolean_-type-check)
-- [buffer_type check.](#buffer_-type-check)
-- [function_type check.](#function_-type-check)
-- [nan_type check.](#nan_-type-check)
-- [null_type check.](#null_-type-check)
-- [number_type check.](#number_-type-check)
-- [object_type check.](#object_-type-check)
-- [promise_type check.](#promise_-type-check)
-- [string_type check.](#string_-type-check)
-- [symbol_type check.](#symbol_-type-check)
-- [undefined_type check.](#undefined_-type-check)
+- [Installation](#installation)
+- [Description](#description)
+  - [variable](#variable)
+  - [resolvers](#resolvers)
+  - [payback](#payback)
+- [Functions & Examples](#functions-&-examples)
+  - [oftype_ enhanced typeof](#oftype_-enhanced-typeof)
+  - [array_ type check.](#array_-type-check)
+  - [bigint_type check.](#bigint_-type-check)
+  - [boolean_type check.](#boolean_-type-check)
+  - [buffer_type check.](#buffer_-type-check)
+  - [function_type check.](#function_-type-check)
+  - [nan_type check.](#nan_-type-check)
+  - [null_type check.](#null_-type-check)
+  - [number_type check.](#number_-type-check)
+  - [object_type check.](#object_-type-check)
+  - [promise_type check.](#promise_-type-check)
+  - [string_type check.](#string_-type-check)
+  - [symbol_type check.](#symbol_-type-check)
+  - [undefined_type check.](#undefined_-type-check)
+- [JetBrains OSS Licence](#jetbrains-oss-license)
+
 ___
 
 ### Installation
@@ -34,7 +42,92 @@ ___
 npm i oftypes
 ```
 
-___
+____
+
+### Description
+
+Simple and useful module to check the type of variables.  
+Every function of the module accepts the same arguments.  
+`variable` `resolvers` and `payback`
+
+#### variable
+  
+  This argument is just the variable to check the type for.  
+  
+#### resolvers
+
+  this argument is a kind of replacement for conditional `if` that we are used to doing when using `typeof`.  
+
+  follow a classic code example
+  
+  ```javascript
+  
+  // classic way to type check
+  const variable = '10' // type {number}
+  
+  // the statement is silly because 
+  // for sure your IDE already know there is a type error
+  // but consider for a moment that the variable maybe of many different types.
+  if(typeof variable === 'number'){
+    console.log('the variable is of type Number')
+  }else{
+    console.log('the variable is NOT of type Number')
+  }
+  
+  // yields -> 'the variable is NOT of type Number'
+  ```
+  
+  using oftypes for the same struct
+  
+  ```javascript
+  
+  // oftypes way to type check
+  const variable = '10' // type {number}
+  
+  // here you can see the kind of replacement for conditional if
+  // in this case will return a string in both cases true or false
+  const resolvers = {
+    true: 'the variable is of type Number',
+    false: 'the variable is NOT of type Number' 
+  }
+  
+  // the oftypes.number_ will also recongnize string literal type of number
+  console.log(await number_(variable, resolvers))
+  
+  // yields -> 'the variable is of type Number'
+  ```
+  
+  The resolvers Object must always have two properties `false` & `true`.  
+  The value of the properties can be anything, a function, a Promise or a call to a somewhere else module or an event handler.  
+  
+#### payback
+
+    This argument when set to `true` returns an array so formed `[resolvers|boolean, variable itself]`
+
+  same as above
+
+  ```javascript
+  
+  // oftypes way to type check
+  const variable = '10' // type {number}
+  
+  // here you can see the kind of replacement for conditional if
+  // in this case will return a string in both cases true or false
+  const resolvers = {
+    true: 'the variable is of type Number',
+    false: 'the variable is NOT of type Number' 
+  }
+  
+  const payback = true
+  
+  // the oftypes.number_ will also recongnize string literal type of number
+  console.log(await number_(variable, resolvers, payback))
+  
+  // yields -> ['the variable is of type Number', 10]
+  ```
+  > ℹ the payback is particularly useful when running UNIT tests 
+
+____
 
 ### Functions & Examples
 
@@ -640,3 +733,12 @@ console.log( await undefined_( undefined ) )
 
 ```
 ___
+
+### JetBrains OSS License
+
+___
+
+I want to thank JetBrains to grant me the Open Source Software license for all their products. This opportunity gives me strength to keep on going with my studies and personal project.  
+To learn more about this opportunity have a look at [Licenses for Open Source Development - Community Support](https://www.jetbrains.com/community/opensource/).
+
+_Thank you_
