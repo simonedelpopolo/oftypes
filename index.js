@@ -27,7 +27,7 @@ export const oftypes = oftypes__
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function array_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return array__( variable, resolvers, payback )
 }
 
@@ -40,7 +40,7 @@ export function array_( variable, resolvers = { true: true, false: false }, payb
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function bigint_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return bigint__( variable, resolvers, payback )
 }
 
@@ -53,7 +53,7 @@ export function bigint_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function boolean_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return boolean__( variable, resolvers, payback )
 }
 
@@ -66,7 +66,7 @@ export function boolean_( variable, resolvers = { true: true, false: false }, pa
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function buffer_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return buffer__( variable, resolvers, payback )
 }
 
@@ -79,7 +79,7 @@ export function buffer_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return function__( variable, resolvers, payback )
 }
 
@@ -92,7 +92,7 @@ export function function_( variable, resolvers = { true: true, false: false }, p
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function nan_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return nan__( variable, resolvers, payback )
 }
 
@@ -105,7 +105,7 @@ export function nan_( variable, resolvers = { true: true, false: false }, paybac
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function null_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return null__( variable, resolvers, payback )
 }
 
@@ -118,7 +118,7 @@ export function null_( variable, resolvers = { true: true, false: false }, payba
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function number_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return number__( variable, resolvers, payback )
 }
 
@@ -131,7 +131,7 @@ export function number_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function object_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return object__( variable, resolvers, payback )
 }
 
@@ -144,7 +144,7 @@ export function object_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise<string>}
  */
 export function oftype_( variable, resolvers = undefined, payback = false ) {
-    
+
     return oftype__( variable, resolvers, payback )
 }
 
@@ -157,7 +157,7 @@ export function oftype_( variable, resolvers = undefined, payback = false ) {
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function promise_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return promise__( variable, resolvers, payback )
 }
 
@@ -170,7 +170,7 @@ export function promise_( variable, resolvers = { true: true, false: false }, pa
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function string_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return string__( variable, resolvers, payback )
 }
 
@@ -183,7 +183,7 @@ export function string_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function symbol_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return symbol__( variable, resolvers, payback )
 }
 
@@ -205,7 +205,7 @@ export function symbol_( variable, resolvers = { true: true, false: false }, pay
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
 export function undefined_( variable, resolvers = { true: true, false: false }, payback = false ) {
-    
+
     return undefined__( variable, resolvers, payback )
 }
 
