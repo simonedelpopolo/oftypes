@@ -11,6 +11,7 @@ import {
     oftype__,
     oftypes__,
     promise__,
+    resolvers__,
     string__,
     symbol__,
     undefined__,
@@ -48,7 +49,7 @@ export function bigint_( variable, resolvers = { true: true, false: false }, pay
  * The boolean_ checking function.
  *
  * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
+ * @param {{true: *, false: *} | void} resolvers - Default is set to true and false, but can be set to anything.
  * @param {boolean=} payback - If true it will send back the variable value.
  * @returns {Promise | PromiseFulfilledResult<any> | any}
  */
@@ -159,6 +160,20 @@ export function oftype_( variable, resolvers = undefined, payback = false ) {
 export function promise_( variable, resolvers = { true: true, false: false }, payback = false ) {
 
     return promise__( variable, resolvers, payback )
+}
+
+/**
+ * Resolvers ⬇
+ * Instead of using the resolvers in the form of an Object -> `{true: any, false: any}` this function wrap them in two arguments.
+ * This function is made to simplify the way to pass the resolvers to **oftypes.[functions]**.
+ * **No more one ~~_unique variables name_~~ for the resolvers**.
+ *
+ * @param {any} truthy - truthy
+ * @param {any} falsy - falsy
+ * @returns {Promise<{true:any, false:any}>|{true:any, false:any}}
+ */
+export async function resolvers( truthy, falsy ){
+    return resolvers__( truthy, falsy )
 }
 
 /**

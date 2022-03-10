@@ -29,6 +29,7 @@ ___
   - [number_type check.](#number_-type-check)
   - [object_type check.](#object_-type-check)
   - [promise_type check.](#promise_-type-check)
+  - [resolvers function.](#resolvers-function)
   - [string_type check.](#string_-type-check)
   - [symbol_type check.](#symbol_-type-check)
   - [undefined_type check.](#undefined_-type-check)
@@ -618,6 +619,45 @@ const asyncFunction = async()=>{}
 console.log( await promise_( asyncFunction ) )
 
 // yield true
+
+```
+
+___
+
+- #### resolvers function.
+
+#### resolvers(truthy: any, falsy: any) ⇒ `Promise<{true:any, false:any}>|{true:any, false:any}`
+
+Instead of using the resolvers in the form of an Object -> `{true: any, false: any}` this function wrap them in two arguments.  
+This function is made to simplify the way to pass the resolvers to **oftypes.[functions]**.  
+**No more one ~~_unique variables name_~~ for the resolvers.**
+
+**Kind**: global function
+
+| Param  | Type  | Default    | Description                                  |
+|--------|-------|------------|----------------------------------------------|
+| truthy | `any` | ❗️required | It sets the true resolver.                   |
+| falsy  | `any` | ❗️required | It sets the false resolver.                  |
+
+**Example**
+
+```js
+// import the resolvers function.
+import { boolean_, resolvers } from 'oftypes'
+
+// usually the resolvers are set like this, and in case we are resolving many oftypes.[functions]
+// we will need to declare many different unique const/let variables with unique name.
+
+const resolvers_as_object = {true: 'true', false: 'false'}
+const boolean = 'string'
+
+// instead of passing the argument as an object -> resolvers_as_object
+// we directly pass the resolvers function with the two arguments set to Strings 'true' and 'false' respectively
+// the resolvers function will return the same things as the resolvers_as_object
+
+console.log(await boolean_(boolean, await resolvers('true', 'false')))
+
+// yield the String -> 'false'
 
 ```
 
