@@ -10,7 +10,7 @@
   "scripts": {
     "eslint": "npx eslint . --ext .js",
     "eslint-fix": "npx eslint --fix . --ext .js",
-    "unit-test": "npx 4t unit",
+    "unit-tests": "npx 4t unit",
     "assertions": "cd ./assertions/ && node ./assertions.js",
     "assertion0": "cd ./assertions/ && node ./assertions.js assertion0",
     "assertion1": "cd ./assertions/ && node ./assertions.js assertion1",
