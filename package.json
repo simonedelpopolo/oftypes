@@ -30,7 +30,7 @@
   "devDependencies": {
     "eslint": "^8.10.0",
     "eslint-plugin-jsdoc": "^37.9.7",
-    "trythistrythat": "^0.0.17"
+    "trythistrythat": "^0.1.24"
   },
   "publishConfig": {
     "access": "public"
