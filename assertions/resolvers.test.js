@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import * as oftype___ from '../index.js'
 import * as tttt from 'trythistrythat'
+import { throws } from 'node:assert/strict'
 
 export default async function (){
 
@@ -14,7 +15,7 @@ export default async function (){
         return {
             expected: 'OK',
             actual: await ( await oftype___.boolean_( true, await oftype___.resolvers( truthy, falsy ) ) )(),
-            error: 'mhmhmhm :/'.bg_red()
+            error: 'mhmhmhm - 1 :/'.bg_red()
         }
     } )
 
@@ -27,9 +28,22 @@ export default async function (){
         return {
             expected: { true: 'OK', false: 'KO' },
             actual: await oftype___.resolvers( truthy, falsy ),
-            error: 'mhmhmhm :/'.bg_red()
+            error: 'mhmhmhm - 2 :/'.bg_red()
         }
     } )
+
+    tttt.describe(  ' - 3'.yellow().bg_black().underline(), 'called directly without arguments should throw' )
+
+    let thrower = true
+    let thrower_message = ''
+    const err = await oftype___.resolvers().catch( error => error )
+
+    try{
+        throws( () => {throw err}, { name:'TypeError' }, 'mhmhmhm - 3 :/'.bg_red() )
+    }catch ( error_message ) {
+        thrower = false
+        thrower_message = error_message.message
+    }
 
     if ( resolvers_test_oki instanceof Error ){
         tttt.failed( true )
@@ -42,6 +56,12 @@ export default async function (){
         console.log( resolvers_test_deeeeep )
     }else
         console.log( 'fine deeeeep'.bg_green() )
+
+    if( thrower === false ){
+        tttt.failed( true )
+        console.log( thrower_message )
+    }else
+        console.log( 'fine throws'.bg_green() )
 
     tttt.end_test( tttt.id() )
 }
