@@ -37,7 +37,7 @@ export default async function(){
 
     tttt.describe()
 
-    describe( 'resolvers is of type Object and has true and false has key properties names' )
+    describe( 'resolvers is of type Object and has true and false as key properties names' )
     describe( 'returns true'.yellow() )
     tttt.describe()
 
