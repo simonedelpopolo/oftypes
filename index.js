@@ -3,6 +3,7 @@ import {
     bigint__,
     boolean__,
     buffer__,
+    compare__,
     function__,
     nan__,
     null__,
@@ -69,6 +70,21 @@ export function boolean_( variable, resolvers = { true: true, false: false }, pa
 export function buffer_( variable, resolvers = { true: true, false: false }, payback = false ) {
 
     return buffer__( variable, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.compare ]
+ * Compare two variable types.
+ *
+ * @param {any} v_1 - variable to compare.
+ * @param {any} v_2 - variable to compare.
+ * @param {boolean} strict - deepStrictEqual.
+ * @param {{true:any, false:any}=} resolvers - default is set to true and false, but can be set to anything.
+ * @param {boolean=} payback - if true it will send back the variable value.
+ * @returns {Promise | PromiseFulfilledResult<any> | any}
+ */
+export async function compare( v_1, v_2, strict = false, resolvers = { true: true, false: false }, payback = false ) {
+    return compare__( v_1, v_2, strict, resolvers, payback )
 }
 
 /**

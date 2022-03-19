@@ -1,4 +1,6 @@
-/* eslint-disable jsdoc/require-jsdoc */
+/* eslint-disable jsdoc/require-jsdoc,capitalized-comments */
+// noinspection JSUnusedGlobalSymbols
+
 import * as oftype___ from '../index.js'
 import * as tttt from 'trythistrythat'
 import { throws } from 'node:assert/strict'
