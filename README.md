@@ -22,6 +22,7 @@ ___
   - [array_ type check.](#array_-type-check)
   - [bigint_type check.](#bigint_-type-check)
   - [boolean_type check.](#boolean_-type-check)
+  - [compare function.](#compare-function)
   - [buffer_type check.](#buffer_-type-check)
   - [function_type check.](#function_-type-check)
   - [nan_type check.](#nan_-type-check)
@@ -383,6 +384,44 @@ console.log( await buffer_( variable, resolvers, payback ) )
 
 // yield ['it is NOT oftype buffer!', 'hello folks']
 ```
+___
+
+- #### compare function.
+
+#### resolvers(v_1:any, v_2:any, [strict], [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+
+Compare two variable by the types. Set the argument strict to tru to compare also the content ( _under the hood node:assert.deepStrictEqual_ )
+
+**Kind**: global function
+
+| Param       | Type      | Default                   | Description                                                   |
+|-------------|-----------|---------------------------|---------------------------------------------------------------|
+| v_1         | `any`     |                           | Variable to compare.                                          |
+| v_2         | `any`     |                           | Variable to compare.                                          |
+| [strict]    | `boolean` | false                     | Set it to true to compare also the content.                   |
+| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
+| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+
+**Example**
+
+```js
+// import the compare function.
+import { compare } from 'oftypes'
+
+// compare two variable by the type.
+
+console.log(await compare( [ 5 ], [ 5 ] ))
+
+// yield 'true'
+
+// compare two variable by the type and their content must be the same.
+
+console.log(await compare( [ 5 ], [ 1685 ], true ))
+
+// yield 'false'
+
+```
+
 ___
 
 - #### function_ type check.
