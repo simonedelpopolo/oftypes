@@ -3,11 +3,11 @@ import { compare } from '../index.js'
 import { describe, failed, oki } from 'trythistrythat'
 
 /**
- * UNIT test Object [ oftypes.compare].
+ * UNIT test Object [ oftypes.compare ].
  */
 export default async function(){
 
-    await tttt.describe( 'UNIT test Object [ oftypes.compare]' )
+    await tttt.describe( 'UNIT test Object [ oftypes.compare ]' )
 
     console.log()
 

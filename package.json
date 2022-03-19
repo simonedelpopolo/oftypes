@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and , NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.",
   "type": "module",
   "engines": {
@@ -28,9 +28,9 @@
     "assertion13": "cd ./assertions/ && node ./assertions.js assertion13"
   },
   "devDependencies": {
-    "eslint": "^8.10.0",
-    "eslint-plugin-jsdoc": "^37.9.7",
-    "trythistrythat": "^0.1.24"
+    "eslint": "^8.11.0",
+    "eslint-plugin-jsdoc": "^38.0.4",
+    "trythistrythat": "^0.1.26"
   },
   "publishConfig": {
     "access": "public"
