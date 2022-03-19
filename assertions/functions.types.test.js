@@ -37,7 +37,7 @@ export default async function(){
 
     tttt.describe()
 
-    describe( 'resolvers is of type Object' )
+    describe( 'resolvers is of type Object and has true and false has key properties names' )
     describe( 'returns true'.yellow() )
     tttt.describe()
 
@@ -45,7 +45,7 @@ export default async function(){
 
         return {
             expected: true,
-            actual: types( { }, true, true ),
+            actual: types( { true:true, false:false }, true, true ),
             error: 'something went wrong oki at UNIT test functions.types'
         }
     } )
