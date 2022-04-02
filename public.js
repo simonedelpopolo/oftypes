@@ -3,6 +3,7 @@ import {
     bigint__,
     compare__,
     number__,
+    resolvers__,
     symbol__,
     undefined__,
 } from './lib/exports.js'
@@ -133,6 +134,34 @@ export function compare( v_1, v_2, strict = false, resolvers = { true: true, fal
  */
 export function number_( variable, resolvers = { true: true, false: false }, payback = false, string= true ) {
     return number__( variable, resolvers, payback, string )
+}
+
+/**
+ * Object [ oftypes.resolvers ]
+ *
+ * It sets the resolvers in the form of an Object -> `{true: any, false: any}`.
+ * This function is made to simplify the way to pass the resolvers to **oftypes.[type_functions]**.
+ *
+ * @param {any} truthy - resolver
+ * @param {any} falsy - resolver
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     const truthy = 'variable is Number, thanks to resolvers function'
+ *     const falsy = 'variable is NOT Number'
+ *
+ *     console.log(
+ *       await oftypes.number_(
+ *         '10', await oftypes.resolvers(truthy, falsy)
+ *       )
+ *     )
+ *
+ *     // **prints -> variable is Number, thanks to resolvers function**
+ * @throws {OftypesError}
+ * @returns {Promise<{true:any, false:any}>|{true:any, false:any}}
+ */
+export function resolvers( truthy, falsy ){
+    return resolvers__ ( truthy, falsy )
 }
 
 /**
