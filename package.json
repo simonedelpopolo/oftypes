@@ -1,36 +1,24 @@
 {
   "name": "oftypes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and , NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.",
   "type": "module",
   "engines": {
     "node": ">=v16.14.0 <17"
   },
-  "main": "index.js",
+  "main": "public.js",
   "scripts": {
     "eslint": "npx eslint . --ext .js",
     "eslint-fix": "npx eslint --fix . --ext .js",
-    "unit-tests": "npx 4t unit",
-    "assertions": "cd ./assertions/ && node ./assertions.js",
-    "assertion0": "cd ./assertions/ && node ./assertions.js assertion0",
-    "assertion1": "cd ./assertions/ && node ./assertions.js assertion1",
-    "assertion2": "cd ./assertions/ && node ./assertions.js assertion2",
-    "assertion3": "cd ./assertions/ && node ./assertions.js assertion3",
-    "assertion4": "cd ./assertions/ && node ./assertions.js assertion4",
-    "assertion5": "cd ./assertions/ && node ./assertions.js assertion5",
-    "assertion6": "cd ./assertions/ && node ./assertions.js assertion6",
-    "assertion7": "cd ./assertions/ && node ./assertions.js assertion7",
-    "assertion8": "cd ./assertions/ && node ./assertions.js assertion8",
-    "assertion9": "cd ./assertions/ && node ./assertions.js assertion9",
-    "assertion10": "cd ./assertions/ && node ./assertions.js assertion10",
-    "assertion11": "cd ./assertions/ && node ./assertions.js assertion11",
-    "assertion12": "cd ./assertions/ && node ./assertions.js assertion12",
-    "assertion13": "cd ./assertions/ && node ./assertions.js assertion13"
+    "unit-tests": "npx 4t unit"
   },
   "devDependencies": {
-    "eslint": "^8.11.0",
-    "eslint-plugin-jsdoc": "^38.0.4",
+    "eslint": "^8.12.0",
+    "eslint-plugin-jsdoc": "^38.1.4",
     "trythistrythat": "latest"
+  },
+  "dependencies": {
+    "cli-decors": "latest"
   },
   "publishConfig": {
     "access": "public"

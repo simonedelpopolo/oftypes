@@ -1,243 +1,91 @@
 import {
-    array__,
-    bigint__,
-    boolean__,
-    buffer__,
-    compare__,
-    function__,
-    nan__,
-    null__,
-    number__,
-    object__,
-    oftype__,
-    oftypes__,
-    promise__,
-    resolvers__,
-    string__,
-    symbol__,
-    undefined__,
-} from './lib/exporter.js'
-
-export const oftypes = oftypes__
+    argument_type_check__,
+    empty__,
+    fulfilled__,
+    OftypesError__,
+    reject__,
+} from './lib/exports.js'
 
 /**
- * The array_ checking function.
+ * OftypesError.
  *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
+ * @typedef {OftypesError} OftypesError
  */
-export function array_( variable, resolvers = { true: true, false: false }, payback = false ) {
 
-    return array__( variable, resolvers, payback )
+/**
+ * Exports.
+ *
+ * @private
+ */
+
+/**
+ * Type checking for the arguments passed to any of the oftypes Objects function.
+ *
+ * @param {any} payback - argument
+ * @param {any} strict - argument for node:assert/deepStrictEqual @ Object [ oftypes.compare ]
+ * @param {any} resolvers - argument
+ * @returns {AsyncGenerator< boolean|OftypesError, boolean, void>}
+ */
+export function argument_type_check( payback, strict, resolvers ){
+    return argument_type_check__( payback, strict, resolvers )
 }
 
 /**
- * The bigint_ checking function.
+ * Object [ oftypes.shared.fulfilled ]
+ * Method for resolve function in Promise
+ * It checks the payback argument. If true it resolve the promise with a destructured array including the resolvers message and the checked variable.
+ * Otherwise, just the resolvers.
  *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
+ * @param {boolean} compare - switcher for <oftypes>.<type> function or <oftypes>.<compare> function
+ * @param {
+ *    {variable:any,resolvers:{true:any,false:any},payback:{boolean}} |
+ *    {v_1:any,v_2:any,resolvers:{true:any,false:any},payback:{boolean}}
+ * } data - object including
+ * @property {any} variable - argument.
+ * @property {any} v_1 - argument.
+ * @property {any} v_2 - argument.
+ * @property {{true:any,false:any}} resolvers - argument.
+ * @property {boolean} payback - argument.
+ * @returns {
+ *    [any,{true:any,false:any},{type:string}]|{true:any,false:any}
+ *    [any,any,{true:any,false:any},{left_type:string,right_type:string}]|{true:any,false:any}
+ * } - If payback is true it resolves the promise with a destructured array including the resolvers message, the variable and the variable.constructor.name.
  */
-export function bigint_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return bigint__( variable, resolvers, payback )
+export function fulfilled( compare, data ){
+    return fulfilled__( compare, data )
 }
 
 /**
- * The boolean_ checking function.
+ * Object [ oftypes.shared.reject ]
+ * it runs the type check for the arguments.
  *
- * @param {any} variable - Variable to check for.
- * @param {{true: *, false: *} | void} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
+ * @param {string} oftypes - Object
+ * @param {{payback:any, strict:any, resolvers:any}} argument - arguments
+ * @throws {OftypesError}
+ * @returns {Promise<void> | void}
  */
-export function boolean_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return boolean__( variable, resolvers, payback )
+export function reject( oftypes, argument ){
+    return reject__( oftypes, argument )
 }
 
 /**
- * The buffer_ checking function.
+ * Object [ oftypes.shared.empty ]
+ * resolve and return for undefined variable or set to null.
  *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
+ * @param {any} variable - variable
+ * @returns {boolean}
  */
-export function buffer_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return buffer__( variable, resolvers, payback )
+export function empty( variable ){
+    return empty__( variable )
 }
+
 
 /**
- * Object [ oftypes.compare ]
- * Compare two variable types.
+ * Extending TypeError.
  *
- * @param {any} v_1 - variable to compare.
- * @param {any} v_2 - variable to compare.
- * @param {boolean} strict - deepStrictEqual.
- * @param {{true:any, false:any}=} resolvers - default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - if true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
+ * @param {string} message - the error message to be thrown.
+ * @returns {OftypesError}
  */
-export async function compare( v_1, v_2, strict = false, resolvers = { true: true, false: false }, payback = false ) {
-    return compare__( v_1, v_2, strict, resolvers, payback )
+export function OftypesError( message ){
+    return new OftypesError__( message )
 }
-
-/**
- * The function__ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return function__( variable, resolvers, payback )
-}
-
-/**
- * The nan_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function nan_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return nan__( variable, resolvers, payback )
-}
-
-/**
- * The null_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function null_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return null__( variable, resolvers, payback )
-}
-
-/**
- * The number_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function number_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return number__( variable, resolvers, payback )
-}
-
-/**
- * The object_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function object_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return object__( variable, resolvers, payback )
-}
-
-/**
- * Enhanced typeof, and resolvers to avoid if/elseif conditional statements.
- *
- * @param {any} variable - any kind of variable.
- * @param {{[unknown:string]:any}|undefined} resolvers - resolve the type of the variable.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise<string>}
- */
-export function oftype_( variable, resolvers = undefined, payback = false ) {
-
-    return oftype__( variable, resolvers, payback )
-}
-
-/**
- * The promise_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function promise_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return promise__( variable, resolvers, payback )
-}
-
-/**
- * Resolvers ⬇
- * Instead of using the resolvers in the form of an Object -> `{true: any, false: any}` this function wrap them in two arguments.
- * This function is made to simplify the way to pass the resolvers to **oftypes.[functions]**.
- * **No more one ~~_unique variables name_~~ for the resolvers**.
- *
- * @param {any} truthy - truthy
- * @param {any} falsy - falsy
- * @returns {Promise<{true:any, false:any}>|{true:any, false:any}}
- */
-export async function resolvers( truthy, falsy ){
-    return resolvers__( truthy, falsy )
-}
-
-/**
- * The string_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function string_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return string__( variable, resolvers, payback )
-}
-
-/**
- * The symbol_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function symbol_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return symbol__( variable, resolvers, payback )
-}
-
-/**
- * The undefined_ checking function.
- *
- * @param {any} variable - Variable to check for.
- * @param {{true:any, false:any}=} resolvers - Default is set to true and false, but can be set to anything.
- * @param {boolean=} payback - If true it will send back the variable value.
- * @example
- *     let variable
- *
- *     console.log( await oftype.undefined_( variable, {
- *       true:'the variable is undefined',
- *       false:'variable is set'
- *     }))
- *
- *     // yield: the variable is undefined
- * @returns {Promise | PromiseFulfilledResult<any> | any}
- */
-export function undefined_( variable, resolvers = { true: true, false: false }, payback = false ) {
-
-    return undefined__( variable, resolvers, payback )
-}
-
-Object.freeze( oftypes )
