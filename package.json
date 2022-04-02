@@ -1,11 +1,9 @@
 {
   "name": "oftypes",
-  "version": "1.4.5",
-  "description": "Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and , NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.",
+  "version": "1.5.0",
+  "license": "Apache-2.0",
+  "description": "Configurable typeof analysis. Javascript ESModule.",
   "type": "module",
-  "engines": {
-    "node": ">=v16.14.0 <17"
-  },
   "main": "public.js",
   "scripts": {
     "eslint": "npx eslint . --ext .js",
@@ -20,21 +18,9 @@
   "dependencies": {
     "cli-decors": "latest"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "homepage": "https://github.com/simonedelpopolo/oftypes#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simonedelpopolo/oftypes.git"
-  },
-  "bugs": {
-    "email": "simonedelpopolo@outlook.com",
-    "url": "https://github.com/simonedelpopolo/oftypes/issues"
-  },
   "keywords": [
-    "type checking",
     "typeof",
+    "Promise",
     "NaN",
     "Object",
     "Symbol",
@@ -54,5 +40,17 @@
     "email": "simonedelpopolo@outlook.com",
     "url": "https://github.com/simonedelpopolo"
   },
-  "license": "Apache-2.0"
+  "funding": {
+    "type" : "individual",
+    "url" : "https://opencollective.com/simonedelpopolo/projects/oftypes/donate"
+  },
+  "homepage": "https://github.com/simonedelpopolo/oftypes#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonedelpopolo/oftypes.git"
+  },
+  "bugs": {
+    "email": "simonedelpopolo@outlook.com",
+    "url": "https://github.com/simonedelpopolo/oftypes/issues"
+  }
 }
