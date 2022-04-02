@@ -13,6 +13,12 @@ import {
  */
 
 /**
+ * Oftypes.
+ *
+ * @typedef {Object<Oftypes>} Oftypes
+ */
+
+/**
  * Exports.
  *
  * @private
@@ -24,10 +30,11 @@ import {
  * @param {any} payback - argument
  * @param {any} strict - argument for node:assert/deepStrictEqual @ Object [ oftypes.compare ]
  * @param {any} resolvers - argument
+ * @param {any|undefined} string - argument string @ Object [ oftypes.number_ ]
  * @returns {AsyncGenerator< boolean|OftypesError, boolean, void>}
  */
-export function argument_type_check( payback, strict, resolvers ){
-    return argument_type_check__( payback, strict, resolvers )
+export function argument_type_check( payback, strict, resolvers, string ){
+    return argument_type_check__( payback, strict, resolvers, string )
 }
 
 /**
@@ -60,7 +67,12 @@ export function fulfilled( compare, data ){
  * it runs the type check for the arguments.
  *
  * @param {string} oftypes - Object
- * @param {{payback:any, strict:any, resolvers:any}} argument - arguments
+ * @param {{
+ *   payback:any,
+ *   strict:any,
+ *   resolvers:any,
+ *   string:boolean|undefined
+ * }} argument - arguments
  * @throws {OftypesError}
  * @returns {Promise<void> | void}
  */

@@ -68,6 +68,11 @@ export default async function oftypes_examples_unit(){
     tttt.line()
     tttt.describe( await oftypes.array_( { hello: 'ciao' }, undefined, true ) )
 
+    tttt.line()
+    tttt.describe( '## <oftypes>.<bigint_> "payback"=true'.magenta().strong().underline() )
+    tttt.line()
+    tttt.describe( await oftypes.bigint_( BigInt( 10_100_012 ), undefined, true ) )
+
     tttt.end_test( tttt.id() )
 }
 

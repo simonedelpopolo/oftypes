@@ -1,13 +1,13 @@
 import * as tttt from 'trythistrythat'
-import { array_ } from '../../public.js'
+import { bigint_ } from '../../public.js'
 
 export default async () => {
-    tttt.describe( '# UNIT tests for **Object [ oftypes.array_ ]**'.bg_yellow().strong().underline() )
+    tttt.describe( '# UNIT tests for **Object [ oftypes.bigint_ ]**'.bg_yellow().strong().underline() )
     tttt.line()
 
     let error
 
-    tttt.describe( 'variable is an array of {number[]} -> [ 5 ]' )
+    tttt.describe( 'variable is BigInt(20_444_693_565)' )
     tttt.describe( 'returns true'.yellow() )
     tttt.line()
 
@@ -15,7 +15,7 @@ export default async () => {
 
         return {
             expected: true,
-            actual: await array_( [ 5 ] ),
+            actual: await bigint_( BigInt( 20_444_693_565 ) ),
         }
 
     } )
@@ -29,17 +29,17 @@ export default async () => {
     tttt.line()
 
     tttt.separator()
-    tttt.line()
 
-    tttt.describe( 'variable is an object -> { object: null }' )
-    tttt.describe( 'returns [ false, { object: null }, {type: \'Object\'} ]'.yellow() )
+    tttt.line()
+    tttt.describe( 'variable is null' )
+    tttt.describe( 'returns [ false, null, { type: \'null\' } ]'.yellow() )
     tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
         return {
-            expected: [ false, { object: null }, { type: 'Object' } ],
-            actual: await array_( { object: null }, undefined, true ),
+            expected: [ false, null, { type: 'null' } ],
+            actual: await bigint_( null, undefined, true ),
         }
 
     } )

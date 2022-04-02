@@ -1,5 +1,6 @@
 import {
     array__,
+    bigint__,
     compare__,
     number__,
     symbol__,
@@ -30,6 +31,32 @@ import {
  */
 export function array_( variable, resolvers = { true: true, false: false }, payback = false ) {
     return array__( variable, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.bigint_ ]
+ *
+ * **type check for bigint**.
+ *
+ * @param {any} variable - to check for
+ * @param {{true:any,false:any}} [resolvers={true:true,false:false}] - dynamically set "kind of" if/else statement to resolve the type checking.
+ * @param {boolean} [payback=false] - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable = BigInt( 10_100_012 )
+ *
+ *     console.log( await oftypes.bigint_( variable, {
+ *       true:'the variable is BigInt',
+ *       false:'variable is NOT BigInt'
+ *     }))
+ *
+ *     // **prints -> the variable is BigInt**
+ * @throws {OftypesError}
+ * @returns {Promise<boolean|any|[any,any,{type:string}]> | boolean|any|[any,any,{type:string}]}
+ */
+export function bigint_( variable, resolvers = { true: true, false: false }, payback = false ) {
+    return bigint__( variable, resolvers, payback )
 }
 
 /**
