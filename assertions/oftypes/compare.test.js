@@ -2,6 +2,9 @@ import * as tttt from 'trythistrythat'
 import { compare } from '../../public.js'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/compare.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.compare ]**'.bg_yellow().strong().underline(), '\n' )

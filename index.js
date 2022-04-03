@@ -31,11 +31,22 @@ import {
  * @param {any} strict - argument for node:assert/deepStrictEqual @ Object [ oftypes.compare ]
  * @param {any} resolvers - argument
  * @param {any|undefined} string - argument @ Object [ oftypes.number_ ]
- * @param {{truthy:any,falsy:any}|undefined} resolvers_argument - arguments string @ Object [ oftypes.resolvers ]
+ * @param {{truthy:any,falsy:any}|undefined=} resolvers_argument - arguments string @ Object [ oftypes.resolvers ]
  * @returns {AsyncGenerator< boolean|OftypesError, boolean, void>}
  */
 export function argument_type_check( payback, strict, resolvers, string, resolvers_argument ){
     return argument_type_check__( payback, strict, resolvers, string, resolvers_argument )
+}
+
+/**
+ * Object [ oftypes.shared.empty ]
+ * resolve and return for undefined variable or set to null.
+ *
+ * @param {any} variable - variable
+ * @returns {boolean}
+ */
+export function empty( variable ){
+    return empty__( variable )
 }
 
 /**
@@ -82,16 +93,6 @@ export function reject( oftypes, argument ){
     return reject__( oftypes, argument )
 }
 
-/**
- * Object [ oftypes.shared.empty ]
- * resolve and return for undefined variable or set to null.
- *
- * @param {any} variable - variable
- * @returns {boolean}
- */
-export function empty( variable ){
-    return empty__( variable )
-}
 
 /**
  * Extending TypeError.

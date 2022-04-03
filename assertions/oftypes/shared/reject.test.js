@@ -4,6 +4,8 @@ import { rejects, strictEqual } from 'node:assert'
 
 export default async () => {
 
+    tttt.describe( '**oftypes/shared/reject.test.js**'.underline().strong() )
+
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.reject ]**'.bg_yellow().strong().underline(), '\n' )
     tttt.separator()
 
@@ -19,10 +21,12 @@ export default async () => {
 
     try{
         await rejects(
-            async () => reject(
-                'undefined_',
-                { strict: false, payback: false, resolvers: 'resolver must be an object' }
-            ),
+            async () => {
+                throw await reject(
+                    'undefined_',
+                    { strict: false, payback: false, resolvers: 'resolver must be an object' },
+                )
+            },
             ( error ) => {
 
                 strictEqual( error.name, 'OftypesError' )
@@ -52,10 +56,12 @@ export default async () => {
 
     try{
         await rejects(
-            async () => reject(
-                'promise_',
-                { strict: false, payback: false, resolvers: { true:true, no_right_property:false } }
-            ),
+            async () => {
+                throw await reject(
+                    'promise_',
+                    { strict: false, payback: false, resolvers: { true: true, no_right_property: false } },
+                )
+            },
             ( error ) => {
                 strictEqual( error.name, 'OftypesError' )
 
@@ -83,10 +89,12 @@ export default async () => {
 
     try{
         await rejects(
-            async () => reject(
-                'resolvers',
-                { resolvers_argument: { } }
-            ),
+            async () => {
+                throw await reject(
+                    'resolvers',
+                    { resolvers_argument: {} },
+                )
+            },
             ( error ) => {
                 strictEqual( error.name, 'OftypesError' )
 

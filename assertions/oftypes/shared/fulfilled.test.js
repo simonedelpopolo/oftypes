@@ -3,6 +3,8 @@ import { fulfilled } from '../../../index.js'
 
 export default async () => {
 
+    tttt.describe( '**oftypes/shared/fulfilled.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.fulfilled ]**'.bg_yellow().strong().underline(), '\n' )
@@ -19,7 +21,6 @@ export default async () => {
         return {
             expected: [ { true: true, false: false }, 'variable', { type: 'String' } ],
             actual: await fulfilled( false, { variable:'variable', payback:true, resolvers:{ true:true, false:false } } ),
-            error: 'error deepStrictEqual failed'
         }
 
     } )

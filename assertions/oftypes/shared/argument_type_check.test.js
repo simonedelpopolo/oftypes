@@ -1,7 +1,9 @@
 import * as tttt from 'trythistrythat'
-import { argument_type_check } from '../../../index.js'
+import { argument_type_check, OftypesError } from '../../../index.js'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/shared/argument_type_check.test.js**'.underline().strong() )
 
     let error
 
@@ -38,8 +40,15 @@ export default async () => {
     tttt.separator()
 
     argument_type_check_true = false
-    for await ( const type_checks of argument_type_check( true, 'strict as string will throws/rejects', { true:true, false: false } ) )
-        if( type_checks instanceof Error ) argument_type_check_true = type_checks
+    for await ( let type_checks of argument_type_check( true, 'strict as string will throws/rejects', { true:true, false: false }, false ) ) {
+
+        if ( type_checks.constructor.name === 'String' ) {
+            type_checks = `❗️<oftypes.compare> argument-error\n>   ${ type_checks }`
+            argument_type_check_true = new OftypesError( type_checks )
+
+            break
+        }
+    }
 
     error = await tttt.oki( () => {
 

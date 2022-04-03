@@ -1,8 +1,12 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import * as oftypes from '../../public.js'
 import * as tttt from 'trythistrythat'
+import { rejects, strictEqual } from 'node:assert'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/resolvers.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.resolvers ]**'.bg_yellow().strong().underline() )
@@ -31,6 +35,41 @@ export default async () => {
         tttt.line()
         tttt.describe( 'test passed'.green() )
     }
+
+    tttt.separator()
+
+    tttt.line()
+    tttt.describe( '## (2) "resolvers" arguments are required'.bg_yellow().strong().underline() )
+    tttt.line()
+    tttt.describe( ' ➡ "throws/rejects" ❗️<oftypes.resolvers> argument-error\n'.yellow() )
+    tttt.describe( '>   ♠ both arguments \'truthy\' & \'falsy\' are required'.yellow() )
+    tttt.line()
+
+    tttt.separator()
+
+    try{
+
+        await rejects(
+            async () => {
+                throw await oftypes.resolvers()
+            },
+            ( error ) => {
+                strictEqual( error.name, 'OftypesError' )
+
+                tttt.describe( '\n', error.message, '\n' )
+
+                return true
+            } )
+
+        tttt.describe( 'test passed'.green() )
+
+    }catch ( AssertionError ) {
+
+        tttt.failed( true )
+        tttt.describe( '\n', AssertionError )
+
+    }
+
     tttt.end_test( tttt.id() )
 }
 

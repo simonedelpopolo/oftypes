@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "license": "Apache-2.0",
   "description": "Configurable typeof analysis. Javascript ESModule.",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "eslint": "^8.12.0",
-    "eslint-plugin-jsdoc": "^38.1.4",
+    "eslint-plugin-jsdoc": "^38.1.6",
     "trythistrythat": "latest"
   },
   "dependencies": {

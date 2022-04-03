@@ -2,6 +2,9 @@ import * as tttt from 'trythistrythat'
 import { number_ } from '../../public.js'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/number.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.number_ ]**'.bg_yellow().strong().underline(), '\n' )

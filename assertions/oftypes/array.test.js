@@ -2,6 +2,9 @@ import * as tttt from 'trythistrythat'
 import { array_ } from '../../public.js'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/array.test.js**'.underline().strong() )
+
     tttt.describe( '# UNIT tests for **Object [ oftypes.array_ ]**'.bg_yellow().strong().underline() )
     tttt.line()
 

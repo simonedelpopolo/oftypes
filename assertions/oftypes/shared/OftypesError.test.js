@@ -2,7 +2,9 @@ import * as tttt from 'trythistrythat'
 import { OftypesError } from '../../../index.js'
 import { strictEqual, throws } from 'node:assert'
 
-export default () => {
+export default async () => {
+
+    tttt.describe( '**oftypes/shared/OftypesError.test.js**'.underline().strong() )
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.OftypesError ]**'.bg_yellow().strong().underline(), '\n' )
     tttt.separator()

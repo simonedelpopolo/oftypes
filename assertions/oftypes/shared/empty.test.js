@@ -3,6 +3,8 @@ import { empty } from '../../../index.js'
 
 export default async () => {
 
+    tttt.describe( '**oftypes/shared/empty.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.empty ]**'.bg_yellow().strong().underline(), '\n' )

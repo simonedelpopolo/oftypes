@@ -8,7 +8,9 @@ import { oftypes as oftypes_enumerate_objects } from '../lib/exports.js'
  *
  * @returns {Promise<void> | void}
  */
-export default async function oftypes_examples_unit(){
+export default async() => {
+
+    tttt.describe( '**oftypes.examples.js**'.underline().strong() )
 
     tttt.describe( '# oftypes object structure'.yellow().underline().strong() )
     tttt.line()

@@ -2,6 +2,9 @@ import * as tttt from 'trythistrythat'
 import { undefined_ } from '../../public.js'
 
 export default async () => {
+
+    tttt.describe( '**oftypes/undefined.test.js**'.underline().strong() )
+
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.undefined_ ]**'.bg_yellow().strong().underline(), '\n' )
