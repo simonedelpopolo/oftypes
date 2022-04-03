@@ -6,6 +6,7 @@ import {
     buffer__,
     compare__,
     function__,
+    nan__,
     null__,
     number__,
     object__,
@@ -197,6 +198,32 @@ export function compare( v_1, v_2, strict = false, resolvers = { true: true, fal
  */
 export function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
     return function__( variable, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.nan_ ]
+ *
+ * **type check for nan**.
+ *
+ * @param {any} variable - to check for
+ * @param {{true:any,false:any}} [resolvers={true:true,false:false}] - dynamically set "kind of" if/else statement to resolve the type checking.
+ * @param {boolean} [payback=false] - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable =
+ *
+ *     console.log( await oftypes.array_( variable, {
+ *       true:'the variable is NaN',
+ *       false:'variable is NOT NaN'
+ *     }))
+ *
+ *     // **prints -> the variable is NaN**
+ * @throws {OftypesError}
+ * @returns {Promise<boolean|any|[any,any,{type:string}]> | boolean|any|[any,any,{type:string}]}
+ */
+export function nan_( variable, resolvers = { true: true, false: false }, payback = false ){
+    return nan__( variable, resolvers, payback )
 }
 
 /**
