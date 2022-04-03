@@ -7,6 +7,7 @@ import {
     compare__,
     function__,
     number__,
+    oftype__,
     promise__,
     resolvers__,
     symbol__,
@@ -243,6 +244,27 @@ export function function_( variable, resolvers = { true: true, false: false }, p
  */
 export function number_( variable, resolvers = { true: true, false: false }, payback = false, string= true ) {
     return number__( variable, resolvers, payback, string )
+}
+
+/**
+ * Object [ oftypes.oftype_ ]
+ * Enhanced typeof, and resolvers to avoid if/elseif conditional statements.
+ *
+ * @param {any} variable - any kind of variable.
+ * @param {{[unknown:string]:any}|undefined=} resolver - type of the variable.
+ * @param {boolean=} payback - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable = [ 'array', 'of', 'string' ]
+ *     let resolver = { Array: variable }
+ *
+ *     console.log( await oftypes.oftype_( variable, resolver ) )
+ *     // **prints -> [ 'array', 'of', 'string' ]**
+ * @returns {Promise<string|any>|string|any}
+ */
+export function oftype_( variable, resolver= undefined, payback = false ){
+    return oftype__( variable, resolver, payback )
 }
 
 /**

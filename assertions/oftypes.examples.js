@@ -75,6 +75,36 @@ export default async() => {
     tttt.line()
     tttt.describe( await oftypes.bigint_( BigInt( 10_100_012 ), undefined, true ) )
 
+    tttt.line()
+    tttt.describe( '## <oftypes>.<resolvers> rejects/throws>'.magenta().strong().underline() )
+    tttt.describe( '   - when "truthy" & "falsy" aren\'t given, also if just one parameter is not given like in this case' )
+    tttt.line()
+
+    await oftypes.resolvers( 'truthy for true' ).catch( error => tttt.describe( error.message ) )
+    tttt.line()
+
+    tttt.line()
+    tttt.describe( '## <oftypes>.<undefined_> boolean variable>'.magenta().strong().underline() )
+    tttt.describe( '### JavaScript type coercion transform boolean "false"/ number 0/ string "0"/ string ""/ "null" to undefined.'.blue().strong().underline() )
+    tttt.line()
+    tttt.describe( 'await oftypes.undefined_(false)' )
+    tttt.line()
+    tttt.describe( 'will return false - NOT undefined'.b_red() )
+    tttt.line()
+    tttt.describe( await oftypes.undefined_( false ) )
+    tttt.line()
+
+    tttt.line()
+    tttt.describe( '## <oftypes>.<oftype_> Array of string>'.magenta().strong().underline() )
+    tttt.line()
+    tttt.describe( 'will return [ \'array\', \'of\', \'string\' ]'.b_red() )
+    tttt.line()
+
+    let variable = [ 'array', 'of', 'string' ]
+    let resolver = { Array: variable }
+
+    tttt.describe( await oftypes.oftype_( variable, resolver ) )
+
     tttt.end_test( tttt.id() )
 }
 

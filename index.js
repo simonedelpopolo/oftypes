@@ -32,7 +32,7 @@ import {
  * @param {any} resolvers - argument
  * @param {any|undefined} string - argument @ Object [ oftypes.number_ ]
  * @param {{truthy:any,falsy:any}|undefined=} resolvers_argument - arguments string @ Object [ oftypes.resolvers ]
- * @returns {AsyncGenerator< boolean|OftypesError, boolean, void>}
+ * @returns {AsyncGenerator< boolean|string, boolean, void>}
  */
 export function argument_type_check( payback, strict, resolvers, string, resolvers_argument ){
     return argument_type_check__( payback, strict, resolvers, string, resolvers_argument )
@@ -57,7 +57,7 @@ export function empty( variable ){
  *
  * @param {boolean} compare - switcher for <oftypes>.<type> function or <oftypes>.<compare> function
  * @param {
- *    {variable:any,resolvers:{true:any,false:any},payback:{boolean}} |
+ *    {variable:any,resolvers:{true:any,false:any}|string,payback:{boolean}} |
  *    {v_1:any,v_2:any,resolvers:{true:any,false:any},payback:{boolean}}
  * } data - object including
  * @property {any} variable - argument.
@@ -87,7 +87,7 @@ export function fulfilled( compare, data ){
  *   resolvers_argument: {truthy:any,falsy:any}=
  * }} argument - arguments
  * @throws {OftypesError}
- * @returns {Promise<void> | void}
+ * @returns {Promise<undefined|OftypesError> | undefined|OftypesError}
  */
 export function reject( oftypes, argument ){
     return reject__( oftypes, argument )
