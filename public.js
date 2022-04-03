@@ -8,6 +8,7 @@ import {
     function__,
     null__,
     number__,
+    object__,
     oftype__,
     promise__,
     resolvers__,
@@ -272,6 +273,32 @@ export function null_( variable, resolvers = { true: true, false: false }, payba
  */
 export function number_( variable, resolvers = { true: true, false: false }, payback = false, string= true ) {
     return number__( variable, resolvers, payback, string )
+}
+
+/**
+ * Object [ oftypes.object_ ]
+ *
+ * **type check for object**.
+ *
+ * @param {any} variable - to check for
+ * @param {{true:any,false:any}} [resolvers={true:true,false:false}] - dynamically set "kind of" if/else statement to resolve the type checking.
+ * @param {boolean} [payback=false] - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable = { func:() => {} }
+ *
+ *     console.log( await oftypes.object_( variable, {
+ *       true:'the variable is Object',
+ *       false:'variable is NOT Object'
+ *     }))
+ *
+ *     // **prints -> the variable is Object**
+ * @throws {OftypesError}
+ * @returns {Promise<boolean|any|[any,any,{type:string}]> | boolean|any|[any,any,{type:string}]}
+ */
+export function object_( variable, resolvers = { true: true, false: false }, payback = false ) {
+    return object__( variable, resolvers, payback )
 }
 
 /**
