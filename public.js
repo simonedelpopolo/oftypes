@@ -6,10 +6,12 @@ import {
     buffer__,
     compare__,
     function__,
+    null__,
     number__,
     oftype__,
     promise__,
     resolvers__,
+    string__,
     symbol__,
     undefined__,
 } from './lib/exports.js'
@@ -194,6 +196,32 @@ export function compare( v_1, v_2, strict = false, resolvers = { true: true, fal
  */
 export function function_( variable, resolvers = { true: true, false: false }, payback = false ) {
     return function__( variable, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.null_ ]
+ *
+ * **type check for null**.
+ *
+ * @param {any} variable - to check for
+ * @param {{true:any,false:any}} [resolvers={true:true,false:false}] - dynamically set "kind of" if/else statement to resolve the type checking.
+ * @param {boolean} [payback=false] - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable = null
+ *
+ *     console.log( await oftypes.null_( variable, {
+ *       true:'the variable is null',
+ *       false:'variable is NOT null'
+ *     }))
+ *
+ *     // **prints -> the variable is null**
+ * @throws {OftypesError}
+ * @returns {Promise<boolean|any|[any,any,{type:string}]> | boolean|any|[any,any,{type:string}]}
+ */
+export function null_( variable, resolvers = { true: true, false: false }, payback = false ) {
+    return null__( variable, resolvers, payback )
 }
 
 /**
