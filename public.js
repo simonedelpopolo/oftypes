@@ -379,6 +379,9 @@ export function oftype_( variable, resolver= undefined, payback = false ){
 /**
  * Object [ oftypes.promise_ ]
  *
+ * - for backward compatibility still chasing also AsyncFunction
+ * - recommended Object [ oftype.async_ ] to chase AsyncFunction
+ *
  * **type check for promise**.
  *
  * @param {any} variable - to check for

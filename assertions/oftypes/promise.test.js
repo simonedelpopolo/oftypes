@@ -34,16 +34,16 @@ export default async () => {
     tttt.separator()
     tttt.line()
 
-    tttt.describe( 'variable is an AsyncFunction -> async () => {})' )
+    tttt.describe( 'variable is an Function -> () => {})' )
     tttt.describe( 'returns [ false, [AsyncFunction: func], {type: \'AsyncFunction\'} ]'.yellow() )
     tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
-        const func = async() => {}
+        const func = () => {}
 
         return {
-            expected: [ false, func, { type: 'AsyncFunction' } ],
+            expected: [ false, func, { type: 'Function' } ],
             actual: await promise_( func, undefined, true ),
         }
 
