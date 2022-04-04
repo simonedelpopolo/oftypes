@@ -447,7 +447,7 @@ Set the argument strict to `true` to compare also the content **( _under the hoo
 
 **Kind**: global function
 
-| Param       | Type                           | Default                   | Description               |
+| argument    | type                           | Default                   | Description               |
 |-------------|--------------------------------|---------------------------|---------------------------|
 | v_1         | `any`                          |                           | left compare              |
 | v_2         | `any`                          |                           | right compare             |
@@ -746,10 +746,10 @@ ___
 It sets the resolvers in the form of an Object -> `{true: any, false: any}`.  
 This function is made to simplify the way to pass the resolvers to **oftypes.[type_functions]**.
 
-| Param  | Type  | Default      | Description                                  |
-|--------|-------|--------------|----------------------------------------------|
-| truthy | `any` | (❗️required) | It sets the true resolver.                   |
-| falsy  | `any` | (❗️required) | It sets the false resolver.                  |
+| argument | type  | Default      | Description                                  |
+|----------|-------|--------------|----------------------------------------------|
+| truthy   | `any` | (❗️required) | It sets the true resolver.                   |
+| falsy    | `any` | (❗️required) | It sets the false resolver.                  |
 
 **Example**
 
