@@ -5,12 +5,13 @@ import {
     boolean__,
     buffer__,
     compare__,
+    error__,
     function__,
     nan__,
     null__,
     number__,
     object__,
-    oftype__,
+    oftype__, OftypesError__,
     promise__,
     resolvers__,
     string__,
@@ -172,6 +173,32 @@ export function buffer_( variable, resolvers = { true: true, false: false }, pay
  */
 export function compare( v_1, v_2, strict = false, resolvers = { true: true, false: false }, payback = false ) {
     return compare__( v_1, v_2, strict, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.error_ ]
+ *
+ * **type check for instanceof Error**.
+ *
+ * @param {any} variable - to check for
+ * @param {{true:any,false:any}} [resolvers={true:true,false:false}] - dynamically set "kind of" if/else statement to resolve the type checking.
+ * @param {boolean} [payback=false] - If true it will send back the variable value.
+ * @example
+ *     import * as oftypes from 'oftypes'
+ *
+ *     let variable = new Error( 'test' )
+ *
+ *     console.log( await oftypes.error_( variable, {
+ *       true:'the variable is Error',
+ *       false:'variable is NOT Error'
+ *     }))
+ *
+ *     // **prints -> the variable is Error**
+ * @throws {OftypesError}
+ * @returns {Promise<boolean|any|[any,any,{type:string}]> | boolean|any|[any,any,{type:string}]}
+ */
+export function error_( variable, resolvers = { true: true, false: false }, payback = false ) {
+    return error__( variable, resolvers, payback )
 }
 
 /**
@@ -479,4 +506,17 @@ export function string_( variable, resolvers = { true: true, false: false }, pay
  */
 export function undefined_( variable, resolvers = { true: true, false: false }, payback = false ) {
     return undefined__( variable, resolvers, payback )
+}
+
+/**
+ * Object [ oftypes.shared.OftypesError ]
+ */
+/**
+ * Extending TypeError.
+ *
+ * @param {string} message - the error message to be thrown.
+ * @returns {OftypesError}
+ */
+export function OftypesError( message ){
+    return new OftypesError__( message )
 }

@@ -2,7 +2,6 @@ import {
     argument_type_check__,
     empty__,
     fulfilled__,
-    OftypesError__,
     reject__,
 } from './lib/exports.js'
 
@@ -91,15 +90,4 @@ export function fulfilled( compare, data ){
  */
 export function reject( oftypes, argument ){
     return reject__( oftypes, argument )
-}
-
-
-/**
- * Extending TypeError.
- *
- * @param {string} message - the error message to be thrown.
- * @returns {OftypesError}
- */
-export function OftypesError( message ){
-    return new OftypesError__( message )
 }

@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { OftypesError } from '../../../index.js'
+import { OftypesError } from '../../../public.js'
 import { strictEqual, throws } from 'node:assert'
 
 export default async () => {

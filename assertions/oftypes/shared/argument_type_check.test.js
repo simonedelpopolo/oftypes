@@ -1,5 +1,6 @@
 import * as tttt from 'trythistrythat'
-import { argument_type_check, OftypesError } from '../../../index.js'
+import { argument_type_check } from '../../../index.js'
+import { OftypesError } from '../../../public.js'
 
 export default async () => {
 
