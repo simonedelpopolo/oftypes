@@ -105,6 +105,7 @@ export default async() => {
 
     tttt.describe( await oftypes.oftype_( variable, resolver ) )
 
+    // - end of 4t life cycle
     tttt.end_test( tttt.id() )
 }
 
