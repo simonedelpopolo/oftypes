@@ -2,11 +2,7 @@
 
 ___
 
-###### Configurable typeof responses. All the primitives are covered [bigint, boolean, buffer, string, number, promise, undefined, symbol, null] and NaN. Function, Array, Promise ( STD built-in objects ) and Buffer ( Node.js )  are differentiated from Object. Javascript ESModule.
-
-[Standard built-in object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
-
-**Javascript ESModule.**
+###### Configurable 'typeof' analysis and responses. Javascript ESModule.
 
 ___
 
@@ -14,15 +10,17 @@ ___
 
 - [Installation](#installation)
 - [Description](#description)
-  - [variable](#variable)
-  - [resolvers](#resolvers)
-  - [payback](#payback)
+  - [variable argument](#variable-argument)
+  - [resolvers argument](#resolvers-argument)
+  - [payback argument](#payback-argument)
 - [Functions & Examples](#functions-&-examples)
   - [oftype_ enhanced typeof](#oftype_-enhanced-typeof)
   - [array_ type check.](#array_-type-check)
+  - [async_ type check.](#async_-type-check)
   - [bigint_type check.](#bigint_-type-check)
   - [boolean_type check.](#boolean_-type-check)
   - [compare function.](#compare-function)
+  - [error_ type check.](#error_-type-check)
   - [buffer_type check.](#buffer_-type-check)
   - [function_type check.](#function_-type-check)
   - [nan_type check.](#nan_-type-check)
@@ -41,70 +39,92 @@ ___
 ### Installation
 
 ```shell
-npm i oftypes
+npm install oftypes
 ```
 
 ____
 
 ### Description
 
-Simple and useful module to check the type of variables.  
-Every function of the module accepts the same arguments.  
+Simple and useful module to check types of variables.  
+Almost every function of the module accepts the same arguments.  
 `variable` `resolvers` and `payback`
 
-#### variable
-  
-  This argument is just the variable to check the type for.  
-  
-#### resolvers
+type checks function exception is:
 
-  this argument is a kind of replacement for conditional `if` that we are used to doing when using `typeof`.  
+**function number_**  
+
+`oftypes.number_( variable, resolvers, payback, string )`
+
+- extra `{boolean}string` argument default set to `true` and, `variable = "10"` will be considered {number}  
+- Set it to `false` and, `variable = "10"` will **NOT** be considered {number}. **_strict type check_**.
+
+#### variable argument
+  
+  Variable to check the type for.  
+  
+#### resolvers argument
+
+  It is a "kind of replacement" for conditional `if` that we are used doing when using `typeof`.  
 
   follow a classic code example
   
   ```javascript
-  
   // classic way to type check
   const variable = '10' // type {number}
   
-  // the statement is silly because 
-  // for sure your IDE already know there is a type error
-  // but consider for a moment that the variable maybe of many different types.
-  if(typeof variable === 'number'){
-    console.log('the variable is of type Number')
-  }else{
-    console.log('the variable is NOT of type Number')
-  }
+  // this if/else statement is silly.
+  // but consider for a moment that the variable may be of unknown type.
+  if( typeof variable === 'number' ) console.log('the variable is of type Number')
   
-  // yields -> 'the variable is NOT of type Number'
+  else console.log('the variable is NOT of type Number')
+  
+  // prints -> 'the variable is NOT of type Number'
   ```
   
   using oftypes for the same struct
   
   ```javascript
-  
   // oftypes way to type check
   const variable = '10' // type {number}
   
-  // here you can see the kind of replacement for conditional if
-  // in this case will return a string in both cases true or false
+  // here you can see the "kind of replacement" for conditional if
+  // this resolvers will return a string in both cases true or false
   const resolvers = {
     true: 'the variable is of type Number',
     false: 'the variable is NOT of type Number' 
   }
   
-  // the oftypes.number_ will also recongnize string literal type of number
-  console.log(await number_(variable, resolvers))
+  // oftypes.number_ will recongnize string literal number by default
+  console.log( await number_( variable, resolvers ) )
   
-  // yields -> 'the variable is of type Number'
+  // printss -> 'the variable is of type Number'
+
+  // oftypes.number_ strictly detecting type of number.
+  // the payback (3rd argument) set to 'undefined' to use the default value 'false'
+  // the string (4th argument) set to 'false' to strictly detecting type of number
+  console.log( await number_( variable, resolvers, undefined, false ) )
+
+  // prints -> 'the variable is NOT of type Number'
   ```
   
-  The resolvers Object must always have two properties `false` & `true`.  
-  The value of the properties can be anything, a function, a Promise or a call to a somewhere else module or an event handler.  
+  `resolvers` Object must always have two properties `true` & `false`.  
+  The value of the properties by default are  
+  ```javascript
+  { true: true, false: false }
+  ```
+  `resolvers` can be set to anything, a function, a Promise or a call to a somewhere else module or even an event handler.  
   
-#### payback
+#### payback argument
 
-    This argument when set to `true` returns an array so formed `[resolvers|boolean, variable itself]`
+This argument when set to `true` returns an **_array_** ⇩  
+
+```javascript
+// array[0] the resolver result {any|boolean}
+// array[1] the variable itself
+// array[2] the actual variable's type
+[ true, 10, { type: 'Number' } ]
+````
 
   same as above
 
@@ -112,20 +132,20 @@ Every function of the module accepts the same arguments.
   
   // oftypes way to type check
   const variable = '10' // type {number}
-  
-  // here you can see the kind of replacement for conditional if
-  // in this case will return a string in both cases true or false
+
+  // here you can see the "kind of replacement" for conditional if
+  // this resolvers will return a string in both cases true or false
   const resolvers = {
     true: 'the variable is of type Number',
     false: 'the variable is NOT of type Number' 
   }
   
   const payback = true
-  
-  // the oftypes.number_ will also recongnize string literal type of number
+
+  // oftypes.number_ will recongnize string literal number by default
   console.log(await number_(variable, resolvers, payback))
   
-  // yields -> ['the variable is of type Number', 10]
+  // prints -> ['the variable is of type Number', 10, {type: 'Number'}]
   ```
   > ℹ the payback is particularly useful when running UNIT tests 
 
@@ -135,35 +155,38 @@ ____
 
 ___
 
-- #### oftype_ enhanced typeof.
+- #### oftype_ enhanced typeof
 
-#### oftype\_(variable, [resolvers], [payback]) ⇒ `Promise<string|any>|string|any`
+**oftype_(variable, [resolver], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                  | Description                                   |
-|-------------|-----------|--------------------------|-----------------------------------------------|
-| variable    | `any`     |                          | Variable to check for.                        |
-| [resolvers] | `Object`  | `{[unknown:string]:any}` | Default is set to undefined.                  |
-| [payback]   | `boolean` | `false`                  | If true it will send back the variable value. |
+| argument   | type                             | Default     | Description              |
+|------------|----------------------------------|-------------|--------------------------|
+| variable   | `any`                            |             | to check for             |
+| [resolver] | `Object<{[unknown:string]:any}>` | `undefined` | resolver                 |
+| [payback]  | `boolean`                        | `false`     | `true` to get back infos |
 
 > ℹ returned values:
 
+- `constructor.name` of the `variable`
 - Array
-- bigint
+- BigInt
 - Boolean
 - Buffer
 - Function
-- null
 - Number
 - Object
 - Promise
+- AsyncFunction
 - String
 - Symbol
-- undefined
+- ...
+- **_exception done for "undefined" & "null" due to their nature they haven't the constructor.name_**  
+    oftype function will then return as string:
+  - undefined
+  - null
 
-The returned values can be set as property name of the resolvers' argument Object
-The value of the property of the resolvers' object can be any type.
+The returned values can be set as property name of the `resolver` argument Object
+The value of the property of the `resolver` object can be any type.
 
 **Example**
 
@@ -176,7 +199,7 @@ import { oftype_ } from 'oftypes'
 const variable = 10 
 
 /**
- * the resolvers Object
+ * the resolver Object
  *
  * oftype_ returns a Promise<string> of the type, in this case Number.
  * so, we set the property name of the resolvers to Number
@@ -186,16 +209,16 @@ const variable = 10
  * ℹ notice that the value of the property, in this case Number, could be anything, also a function.
  * ℹ notice that the property name can be wrapped into sigle quotes or not
  */
-const resolvers = {
+const resolver = {
     Number: 'allright'
 }
 
-// this will return the value from the resolvers object and the variable itself into an array
+// this will return the value from the resolver object and the variable itself into an array
 const payback = true
 
-console.log( await oftype_(variable, resolvers, payback))
+console.log( await oftype_(variable, resolver, payback))
 
-// Yields -> [ 'allright', 10 ]
+// prints -> [ 'allright', 10, { type: 'Number'} ]
 ```
 
 
@@ -205,11 +228,11 @@ console.log( await oftype_(variable, resolvers, payback))
 import { oftype_ } from 'oftypes'
 
 const variable = [ 'array', 'of', 'string' ]
-const resolvers = { 'Array': 'it is an Array' }
+const resolver = { 'Array': 'it is an Array' }
 
-console.log( await oftype_( variable, resolvers ) )
+console.log( await oftype_( variable, resolver ) )
 
-// Yield -> it is an Array
+// prints -> it is an Array
 ```
 
 ```js
@@ -219,33 +242,31 @@ const variable = async ()=>{}
 
 console.log( await oftype_( variable ) )
 
-// Yield -> Promise
+// prints -> AsyncFunction
 ```
 
 ```js
 import { oftype_ } from 'oftypes'
 
 const variable = async ()=>{}
-const resolvers = { Symbol: 'it is a Symbol' }
+const resolver = { Symbol: 'it is a Symbol' }
 
-console.log( await oftype_( variable, resolvers ) )
+console.log( await oftype_( variable, resolver ) )
 
-// Yield -> undefined
+// prints -> undefined
 ```
 
 ___
 
 - #### array_ type check.
 
-#### array\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**array_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -258,7 +279,7 @@ const payback = undefined
 
 console.log( await array_( variable, resolvers, payback ) )
 
-// Yield true
+// prints true
 ```
 
 ```js
@@ -270,22 +291,55 @@ const payback = undefined
 
 console.log( await array_( variable, resolvers, payback ) )
 
-// yield false
+// prints false
+```
+
+___
+
+- #### async_ type check.
+
+**async_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
+
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
+
+**Example**
+
+```js
+import { async_ } from 'oftypes'
+
+const variable = [ async() => {} ]
+const resolvers = undefined
+
+console.log( await async_( variable[ 0 ] ) )
+
+// prints true
+```
+
+```js
+import { async_ } from 'oftypes'
+
+const variable = new Promise( resolve => resolve( 'promise' ) )
+
+console.log( await async_( variable ) )
+
+// prints false
 ```
 
 ___
 
 - #### bigint_ type check.
 
-#### bigint\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**bigint_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -295,7 +349,7 @@ import { bigint_ } from 'oftypes'
 const variable = BigInt( 'oftypes' )
 
 console.log( await bigint_( variable ) )
-// yield true
+// prints true
 ```
 
 ```js
@@ -304,21 +358,19 @@ import { bigint_ } from 'oftypes'
 const variable = function ( ){}
 
 console.log( await bigint_( variable ) )
-// yield false
+// prints false
 ```
 ___
 
 - #### boolean_ type check.
 
-#### boolean\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**boolean_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -331,7 +383,7 @@ const payback = true
 
 console.log( await boolean_( variable, resolvers, payback ) )
 
-// yield ['it is not oftype boolean!', { object: ()=>{} }]
+// prints ['it is not oftype boolean!', { object: ()=>{} }, { type: 'Object' } ]
 ```
 
 ```js
@@ -343,21 +395,19 @@ const payback = true
 
 console.log( await boolean_( variable, resolvers, payback ) )
 
-// yield ['it is oftype boolean!', true]
+// prints ['it is oftype boolean!', true, { type: 'Boolean' }]
 ```
 ___
 
 - #### buffer_ type check.
 
-#### buffer\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**buffer_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -370,7 +420,7 @@ const payback = true
 
 console.log( await buffer_( variable, resolvers, payback ) )
 
-// yield ['it is oftype buffer!', <Buffer 68 65 6c 6c 6f 20 66 6f 6c 6b 73>]
+// prints ['it is oftype buffer!', <Buffer 68 65 6c 6c 6f 20 66 6f 6c 6b 73>, { type: 'Buffer' } ]
 ```
 
 ```js
@@ -382,25 +432,28 @@ const payback = true
 
 console.log( await buffer_( variable, resolvers, payback ) )
 
-// yield ['it is NOT oftype buffer!', 'hello folks']
+// prints ['it is NOT oftype buffer!', 'hello folks', { type: 'String'} ]
 ```
 ___
 
 - #### compare function.
 
-#### resolvers(v_1:any, v_2:any, [strict], [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+Compare two variable by the types.  
+Set the argument strict to `true` to compare also the content **( _under the hood node:assert.deepStrictEqual_ )**
 
-Compare two variable by the types. Set the argument strict to tru to compare also the content ( _under the hood node:assert.deepStrictEqual_ )
+**compare(v_1:any, v_2:any, [strict], [resolvers], [payback]) ⇒ `Promise<boolean|any|[any,any,any,{left_type:string,right_type:string}]` | `boolean` | `any` | `[any,any,any,{left_type:string,right_type:string}]`**
+
+
 
 **Kind**: global function
 
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| v_1         | `any`     |                           | Variable to compare.                                          |
-| v_2         | `any`     |                           | Variable to compare.                                          |
-| [strict]    | `boolean` | false                     | Set it to true to compare also the content.                   |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| Param       | Type                           | Default                   | Description               |
+|-------------|--------------------------------|---------------------------|---------------------------|
+| v_1         | `any`                          |                           | left compare              |
+| v_2         | `any`                          |                           | right compare             |
+| [strict]    | `boolean`                      | `false`                   | `true` deepStrictEqual    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                 |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos  |
 
 **Example**
 
@@ -410,13 +463,13 @@ import { compare } from 'oftypes'
 
 // compare two variable by the type.
 
-console.log(await compare( [ 5 ], [ 5 ] ))
+console.log( await compare( [ 5 ], [ 5 ] ) )
 
 // yield 'true'
 
-// compare two variable by the type and their content must be the same.
+// compare two variable by the type and deepStrictEqual
 
-console.log(await compare( [ 5 ], [ 1685 ], true ))
+console.log( await compare( [ 5 ], [ 1685 ], true ) )
 
 // yield 'false'
 
@@ -424,17 +477,49 @@ console.log(await compare( [ 5 ], [ 1685 ], true ))
 
 ___
 
+- #### error_ type check.
+
+**error_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
+
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
+
+**Example**
+
+```js
+import { error_ } from 'oftypes'
+
+const variable = new ReferenceError('reference not found')
+
+console.log( await error_( variable ) )
+
+// prints true
+```
+
+```js
+import { error_ } from 'oftypes'
+
+const variable = 'reference not found'
+
+console.log( await error_( variable ) )
+
+// prints false
+```
+
+___
+
 - #### function_ type check.
 
-#### function\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**function_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -442,40 +527,36 @@ ___
 import { function_ } from 'oftypes'
 
 const variable = 10
-const resolvers = undefined
-const payback = false
 
-console.log( await function_( variable, resolvers, payback ) )
+console.log( await function_( variable ) )
 
-// yield false
+// prints false
 ```
 
 ```js
 import { function_ } from 'oftypes'
 
-const variable = () => {console.log( 'I\'m a FUNCTION!' )}
+const variable = () => { console.log( 'I\'m a FUNCTION!' ) }
 const resolvers = { true: true, false: false }
 const payback = true
 
 const resolved = await function_( variable, resolvers, payback )
 resolved[ 1 ]()
 
-// yield I'm a FUNCTION!
+// prints I'm a FUNCTION!
 ```
 
 ___
 
 - #### nan_ type check.
 
-#### nan\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**nan_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -484,11 +565,10 @@ import { nan_ } from 'oftypes'
 
 const variable = 10
 const resolvers = { true: 'it is NaN!', false: 'it is not NaN' }
-const payback = true
 
-console.log( await nan_( variable, resolvers, payback ) )
+console.log( await nan_( variable, resolvers ) )
 
-// yield ['it is not NaN!', 10]
+// prints it is not NaN!
 ```
 
 ```js
@@ -496,26 +576,23 @@ import { nan_ } from 'oftypes'
 
 const variable = { object: null }
 const resolvers = { true: 'it is NaN!', false: 'it is not NaN' }
-const payback = true
 
-console.log( await nan_( variable.object, resolvers, payback ) )
+console.log( await nan_( variable.object, resolvers ) )
 
-// yield ['it is NaN!', { object: null }]
+// prints it is NaN!
 ```
 
 ___
 
 - #### null_ type check.
 
-#### null\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**null_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -524,11 +601,10 @@ import { null_ } from 'oftypes'
 
 const variable = { object: null }
 const resolvers = { true: 'it is null!', false: 'it is not null' }
-const payback = true
 
-console.log( await null_( variable, resolvers, payback ) )
+console.log( await null_( variable, resolvers ) )
 
-// yield ['it is not null!', { object: null }]
+// prints it is not null!
 ```
 
 ```js
@@ -536,26 +612,24 @@ import { null_ } from 'oftypes'
 
 const variable = { object: null }
 const resolvers = { true: 'it is null!', false: 'it is not null' }
-const payback = true
 
 console.log( await null_( variable.object, resolvers, payback ) )
 
-// yield ['it is null!', null]
+// prints it is null!
 ```
 
 ___
 
 - #### number_ type check.
 
-#### number\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**number_(variable, [resolvers], [payback], [string]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description                             |
+|-------------|--------------------------------|---------------------------|-----------------------------------------|
+| variable    | `any`                          |                           | Variable to check for                   |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                               |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos                |
+| [string]    | `boolean`                      | `true`                    | literal string number are typeof number |
 
 **Example**
 
@@ -564,11 +638,10 @@ import { number_ } from 'oftypes'
 
 const variable = 10
 const resolvers = { true: 'it is a number!', false: 'it is not a number' }
-const payback = true
 
-console.log( await string_( variable, resolvers, payback ) )
+console.log( await number_( variable, resolvers ) )
 
-// yield ['it is a number!', 10]
+// prints it is a number!
 ```
 
 ```js
@@ -576,11 +649,10 @@ import { number_ } from 'oftypes'
 
 const variable = '10'
 const resolvers = { true: 'it is a number!', false: 'it is not a number' }
-const payback = true
 
-console.log( await string_( variable, resolvers, payback ) )
+console.log( await string_( variable, resolvers ) )
 
-// yield ['it is a number!', 10]
+// prints it is a number!
 ```
 
 ```js
@@ -588,26 +660,34 @@ import { number_ } from 'oftypes'
 
 const variable = 'folks'
 const resolvers = { true: 'it is a number!', false: 'it is not a number' }
-const payback = true
 
-console.log( await string_( variable, resolvers, payback ) )
+console.log( await number_( variable, resolvers, undefined, false ) )
 
-// yield ['it is not a number!', 'folks']
+// prints it is not a number!
+```
+
+```js
+import { number_ } from 'oftypes'
+
+const variable = 'folks'
+const resolvers = { true: 'it is a number!', false: 'it is not a number' }
+
+console.log( await number_( variable, resolvers ) )
+
+// prints it is not a number!
 ```
 
 ___
 
 - #### object_ type check.
 
-#### object\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**object_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -616,11 +696,10 @@ import { object_ } from 'oftypes'
 
 const variable = [ 'hello folks!' ]
 const resolvers = { true: 'it is an object!', false: 'it is not an object!' }
-const payback = true
 
-console.log( await object_( variable, resolvers, payback ) )
+console.log( await object_( variable, resolvers ) )
 
-// yield ['it is not an object!', ['hello folks!']]
+// prints it is not an object!
 ```
 
 ```js
@@ -628,34 +707,31 @@ import { object_ } from 'oftypes'
 
 const variable = { array1: [ 'hello folks!' ] }
 const resolvers = { true: 'it is an object!', false: 'it is not an object!' }
-const payback = true
 
-console.log( await object_( variable, resolvers, payback ) )
+console.log( await object_( variable, resolvers ) )
 
-// yield ['it is an object!', { array1: [ 'hello folks!' ] }]
+// prints it is an object!
 ```
 
 ___
 
 - #### promise_ type check.
 
-#### promise\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**promise_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
 ```js
 import { promise_ } from 'oftypes'
 
-const asyncFunction = async()=>{}
-console.log( await promise_( asyncFunction ) )
+const variable = new Promise( resolve => resolve( 'promise' ) )
+console.log( await promise_( variable ) )
 
 // yield true
 
@@ -665,18 +741,15 @@ ___
 
 - #### resolvers function.
 
-#### resolvers(truthy: any, falsy: any) ⇒ `Promise<{true:any, false:any}>|{true:any, false:any}`
+**resolvers(truthy: any, falsy: any) ⇒ `Promise<{true:any, false:any}>` | `{true:any, false:any}`**
 
-Instead of using the resolvers in the form of an Object -> `{true: any, false: any}` this function wrap them in two arguments.  
-This function is made to simplify the way to pass the resolvers to **oftypes.[functions]**.  
-**No more one ~~_unique variables name_~~ for the resolvers.**
+It sets the resolvers in the form of an Object -> `{true: any, false: any}`.  
+This function is made to simplify the way to pass the resolvers to **oftypes.[type_functions]**.
 
-**Kind**: global function
-
-| Param  | Type  | Default    | Description                                  |
-|--------|-------|------------|----------------------------------------------|
-| truthy | `any` | ❗️required | It sets the true resolver.                   |
-| falsy  | `any` | ❗️required | It sets the false resolver.                  |
+| Param  | Type  | Default      | Description                                  |
+|--------|-------|--------------|----------------------------------------------|
+| truthy | `any` | (❗️required) | It sets the true resolver.                   |
+| falsy  | `any` | (❗️required) | It sets the false resolver.                  |
 
 **Example**
 
@@ -687,16 +760,16 @@ import { boolean_, resolvers } from 'oftypes'
 // usually the resolvers are set like this, and in case we are resolving many oftypes.[functions]
 // we will need to declare many different unique const/let variables with unique name.
 
-const resolvers_as_object = {true: 'true', false: 'false'}
+const resolvers_as_object = { true: 'true', false: 'false' }
 const boolean = 'string'
 
 // instead of passing the argument as an object -> resolvers_as_object
-// we directly pass the resolvers function with the two arguments set to Strings 'true' and 'false' respectively
-// the resolvers function will return the same things as the resolvers_as_object
+// we directly pass the resolvers function with the two arguments set to 'true' and 'false' respectively
+// the resolvers function will return the same things as the resolvers_as_object would do.
 
-console.log(await boolean_(boolean, await resolvers('true', 'false')))
+console.log( await boolean_( boolean, await resolvers( 'true', 'false' ) ) )
 
-// yield the String -> 'false'
+// prints 'false'
 
 ```
 
@@ -704,15 +777,13 @@ ___
 
 - #### string_ type check.
 
-#### string\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**string_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -721,14 +792,13 @@ import { string_ } from 'oftypes'
 
 const variable = 'hello folks!'
 const resolvers = { true: 'it is a string!', false: 'it is not a string' }
-const payback = true
 
-console.log( await string_( variable, resolvers, payback ) )
+console.log( await string_( variable, resolvers ) )
 
-// yield ['it is a string!', 'hello folks!']
+// prints it is a string!
 ```
 
-#### this example show how the resolvers' parameter can return anything you like
+#### the example ⇩ show how the resolvers' argument can return anything you like
 
 ```js
 import { string_ } from 'oftypes'
@@ -743,13 +813,13 @@ const resolvers = {
 const payback = true
 
 let fileStat = await string_( variable, resolvers, payback )
-if ( typeof fileStat[ 0 ] === 'function' )
+if ( fileStat[ 0 ].constructor.name === 'Function' )
     console.log( await fileStat[ 0 ]() )
 else
     console.log( fileStat )
 
-// yield the stats object of the file
-// change the variable to number = 10, it yields ['it is not a string!', 10]
+// prints the stats object of the file
+// change the variable to number = 10, it prints [ 'it is not a string!', 10, { type: 'Number' } ]
 // if the file passed to the stat function is not found, it yields the ENOENT exception
 ```
 
@@ -757,15 +827,13 @@ ___
 
 - #### symbol_ type check.
 
-#### symbol\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**symbol_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -775,7 +843,7 @@ import { symbol_ } from 'oftypes'
 const variable = Symbol( 'symbol_' )
 
 console.log( await symbol_( variable ) )
-// yield true
+// prints true
 ```
 
 ```js
@@ -784,22 +852,20 @@ import { symbol_ } from 'oftypes'
 const variable = Array(26)
 
 console.log( await symbol_( variable ) )
-// yield false
+// prints false
 ```
 
 ___
 
 - #### undefined_ type check.
 
-#### undefined\_(variable, [resolvers], [payback]) ⇒ `Promise` \| `PromiseFulfilledResult<any>` \| `any`
+**undefined_(variable, [resolvers], [payback]) ⇒ `{Promise<boolean|any|[any,any,{type:string}]>` | `boolean` | `any` | `[any,any,{type:string}]}`**
 
-**Kind**: global function
-
-| Param       | Type      | Default                   | Description                                                   |
-|-------------|-----------|---------------------------|---------------------------------------------------------------|
-| variable    | `any`     |                           | Variable to check for.                                        |
-| [resolvers] | `Object`  | `{true:true,false:false}` | Default is set to true and false, but can be set to anything. |
-| [payback]   | `boolean` | `false`                   | If true it will send back the variable value.                 |
+| argument    | type                           | Default                   | Description              |
+|-------------|--------------------------------|---------------------------|--------------------------|
+| variable    | `any`                          |                           | Variable to check for    |
+| [resolvers] | `Object<{true:any,false:any}>` | `{true:true,false:false}` | resolvers                |
+| [payback]   | `boolean`                      | `false`                   | `true` to get back infos |
 
 **Example**
 
@@ -808,7 +874,7 @@ import { undefined_ } from 'oftypes'
 
 console.log( await undefined_( undefined ) )
 
-// yield true
+// prints true
 
 ```
 ___
