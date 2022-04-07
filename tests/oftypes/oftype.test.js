@@ -1,18 +1,16 @@
 import * as tttt from 'trythistrythat'
 import { oftype_ } from '../../public.js'
 
-export default async () => {
+export default async ( id ) => {
 
     let error
 
-    tttt.describe( '**oftypes/oftype.test.js**'.underline().strong() )
-
     tttt.describe( '# UNIT tests for **Object [ oftypes.oftype_ ]**'.bg_yellow().strong().underline() )
-    tttt.line()
+    await tttt.line()
 
     tttt.describe( 'variable is an array of {number[]} -> [ 5 ]' )
     tttt.describe( 'returns Array'.yellow() )
-    tttt.line()
+    await tttt.line()
 
     error = await tttt.oki( async () => {
 
@@ -29,14 +27,14 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.line()
+    await tttt.line()
 
-    tttt.separator()
-    tttt.line()
+    await tttt.separator()
+    await tttt.line()
 
     tttt.describe( 'variable is an object -> { object: null }' )
     tttt.describe( 'returns [ \'object type\', { object: null }, {type: \'Object\'} ]'.yellow() )
-    tttt.line()
+    await tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -53,5 +51,5 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

@@ -1,24 +1,22 @@
 import * as tttt from 'trythistrythat'
-import { bigint_ } from '../../public.js'
+import { object_ } from '../../public.js'
 
-export default async () => {
+export default async ( id ) => {
 
-    tttt.describe( '**oftypes/bigint.test.js**'.underline().strong() )
-
-    tttt.describe( '# UNIT tests for **Object [ oftypes.bigint_ ]**'.bg_yellow().strong().underline() )
-    tttt.line()
+    tttt.describe( '# UNIT tests for **Object [ oftypes.object_ ]**'.bg_yellow().strong().underline() )
+    await tttt.line()
 
     let error
 
-    tttt.describe( 'variable is BigInt(20_444_693_565)' )
+    tttt.describe( 'variable is object {func:()=>{}}' )
     tttt.describe( 'returns true'.yellow() )
-    tttt.line()
+    await tttt.line()
 
     error = await tttt.oki( async () => {
 
         return {
             expected: true,
-            actual: await bigint_( BigInt( 20_444_693_565 ) ),
+            actual: await object_( { func:() => {} } ),
         }
 
     } )
@@ -29,20 +27,20 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.line()
+    await tttt.line()
 
-    tttt.separator()
+    await tttt.separator()
+    await tttt.line()
 
-    tttt.line()
     tttt.describe( 'variable is null' )
-    tttt.describe( 'returns [ false, null, { type: \'null\' } ]'.yellow() )
-    tttt.line()
+    tttt.describe( 'returns [ false, null , {type: \'null\'} ]'.yellow() )
+    await tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
         return {
             expected: [ false, null, { type: 'null' } ],
-            actual: await bigint_( null, undefined, true ),
+            actual: await object_( null, undefined, true ),
         }
 
     } )
@@ -53,5 +51,5 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

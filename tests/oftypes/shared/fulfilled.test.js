@@ -1,20 +1,18 @@
 import * as tttt from 'trythistrythat'
 import { fulfilled } from '../../../index.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/shared/fulfilled.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.fulfilled ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) fulfilled switch <oftypes>.<type>'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "compare" argument {Boolean} = false' )
     tttt.describe( ' ➡ "data" argument {Object} = { variable:\'variable\', payback:true, resolvers:{ true:true, false:false } }' )
     tttt.describe( ' ➡ returns array [ { true: true, false: false }, \'variable\', { type: \'String\' } ]'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -31,13 +29,13 @@ export default async () => {
     }
     else tttt.describe( 'test passed'.green() )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (2) fulfilled switch <oftypes>.<compare>'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "compare" argument {Boolean} = true' )
     tttt.describe( ' ➡ "data" argument {Object} = { v_1:\'variable one\', v_2:\'variable two\', payback:true, resolvers:{ true:true, false:false } }' )
     tttt.describe( ' ➡ returns array [ { true: true, false: false }, \'variable one\', \'variable two\', { left_type: \'String\', right_type: \'String\' } ]'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -54,5 +52,5 @@ export default async () => {
     }
     else tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

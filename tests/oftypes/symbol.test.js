@@ -1,20 +1,18 @@
 import * as tttt from 'trythistrythat'
 import { symbol_ } from '../../public.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/symbol.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.symbol_ ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) "symbol_variable" is Symbol'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to Symbol.for("variable")' )
     tttt.describe( ' ➡ argument "payback" set to "true"' )
     tttt.describe( ' ➡ returns array [ true, Symbol(variable), { type: \'Symbol\' } ]'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -34,11 +32,11 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
     tttt.describe( '\n', '## (2) "null & undefined" variable'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to "undefined" & "null"' )
     tttt.describe( ' ➡ returns false'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -76,5 +74,5 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

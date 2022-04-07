@@ -2,16 +2,14 @@ import * as tttt from 'trythistrythat'
 import { OftypesError } from '../../../public.js'
 import { strictEqual, throws } from 'node:assert'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/shared/OftypesError.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.OftypesError ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) throw new OftypesError'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "throws"  >   OftypesError: ♠ <oftypes.shared.OftypesError>'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     try{
         throws(
@@ -33,5 +31,5 @@ export default async () => {
         tttt.describe( '\n', AssertionError )
     }
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

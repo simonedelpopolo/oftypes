@@ -1,20 +1,18 @@
 import * as tttt from 'trythistrythat'
 import { number_ } from '../../public.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/number.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.number_ ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) {String}=\'11\' considered Number'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to "11"' )
     tttt.describe( ' ➡ argument "payback" set to "true"' )
     tttt.describe( ' ➡ returns array [ true, \'11\', { type:\'String\' } ]'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -33,11 +31,11 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
     tttt.describe( '\n', '## (2) test for a number'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to "10_000"' )
     tttt.describe( ' ➡ returns false'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -56,15 +54,15 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.line()
+    await tttt.line()
 
-    tttt.separator()
+    await tttt.separator()
     tttt.describe( '\n', '## (3) {String}=\'10000\' considered NOT Number'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to "10000"' )
     tttt.describe( ' ➡ argument "payback" set to "true"' )
     tttt.describe( ' ➡ argument "string" set to "false"' )
     tttt.describe( ' ➡ returns array [ false, \'10000\', { type:\'String\' } ]'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -85,5 +83,5 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

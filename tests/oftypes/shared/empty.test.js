@@ -1,18 +1,22 @@
 import * as tttt from 'trythistrythat'
 import { empty } from '../../../index.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/shared/empty.test.js**'.underline().strong() )
+/**
+ * UNIT-test empty.test.js file.
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
+export default async ( id ) => {
 
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.empty ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) A null variable.'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "returns" true'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( () => {
 
@@ -29,11 +33,11 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (2) An undefined variable.'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "returns" true'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( () => {
 
@@ -50,5 +54,5 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

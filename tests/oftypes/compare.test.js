@@ -1,20 +1,18 @@
 import * as tttt from 'trythistrythat'
 import { compare } from '../../public.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/compare.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     let error
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.compare ]**'.bg_yellow().strong().underline(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (1) this comparison is true'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable_1" set to {String} = "variable one"' )
     tttt.describe( ' ➡ "variable_2" set to {String} = "variable two"' )
     tttt.describe( ' ➡ returns true'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -34,13 +32,13 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (2) this comparison is true'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable_1" set to {null} = null' )
     tttt.describe( ' ➡ "variable_2" set to {null} = null' )
     tttt.describe( ' ➡ returns true'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -60,13 +58,13 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (3) this comparison is false'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable_1" set to {null} = null' )
     tttt.describe( ' ➡ "variable_2" set to {undefined} = undefined' )
     tttt.describe( ' ➡ returns false'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -86,13 +84,13 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (4) this comparison is FALSE because of "strict" argument set to "true"'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable_1" set to {Array} = [ 10 ]' )
     tttt.describe( ' ➡ "variable_2" set to {Array} = [ 11 ]' )
     tttt.describe( ' ➡ returns false'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -112,13 +110,13 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.separator()
+    await tttt.separator()
 
     tttt.describe( '\n', '## (4) this comparison is TRUE because of "strict" argument set to "false"'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable_1" set to {Object} = { array: [ 10 ] , func:()=>{}}' )
     tttt.describe( ' ➡ "variable_2" set to {Object} = { array: [ 11 ], obj: { hello: \'folks\' } ' )
     tttt.describe( ' ➡ returns true'.yellow(), '\n' )
-    tttt.separator()
+    await tttt.separator()
 
     error = await tttt.oki( async () => {
 
@@ -138,5 +136,5 @@ export default async () => {
     }else
         tttt.describe( '\n', 'test passed'.green(), '\n' )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }

@@ -1,18 +1,16 @@
 import * as tttt from 'trythistrythat'
 import { function_ } from '../../public.js'
 
-export default async () => {
-
-    tttt.describe( '**oftypes/function.test.js**'.underline().strong() )
+export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.function_ ]**'.bg_yellow().strong().underline() )
-    tttt.line()
+    await tttt.line()
 
     let error
 
     tttt.describe( 'variable is function' )
     tttt.describe( 'returns true'.yellow() )
-    tttt.line()
+    await tttt.line()
 
     error = await tttt.oki( async () => {
 
@@ -29,14 +27,14 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.line()
+    await tttt.line()
 
-    tttt.separator()
-    tttt.line()
+    await tttt.separator()
+    await tttt.line()
 
     tttt.describe( 'variable is an AsyncFunction -> async () => {})' )
     tttt.describe( 'returns [ false, [AsyncFunction: func], {type: \'AsyncFunction\'} ]'.yellow() )
-    tttt.line()
+    await tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
 
@@ -55,5 +53,5 @@ export default async () => {
     }else
         tttt.describe( 'test passed'.green() )
 
-    tttt.end_test( tttt.id() )
+    tttt.end_test( id )
 }
