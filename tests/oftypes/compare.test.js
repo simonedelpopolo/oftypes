@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { compare } from '../../public.js'
 
+/**
+ * UNIT-test compare.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     let error

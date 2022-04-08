@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { error_, OftypesError } from '../../public.js'
 
+/**
+ * UNIT-test error.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.error_ ]**'.bg_yellow().strong().underline() )
