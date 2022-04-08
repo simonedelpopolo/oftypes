@@ -1,6 +1,6 @@
 .idea
 .git
 .github
-assertions
+tests
 .eslintrc.json
 .eslintignore
