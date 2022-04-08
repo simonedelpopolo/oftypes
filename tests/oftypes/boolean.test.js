@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { boolean_ } from '../../public.js'
 
+/**
+ * UNIT-test boolean.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.boolean_ ]**'.bg_yellow().strong().underline() )
