@@ -22,7 +22,7 @@ export default async ( id ) => {
 
         return {
             expected: true,
-            actual: await array_( [ 5 ], 'gnign' ),
+            actual: await array_( [ 5 ], ),
         }
 
     } )
