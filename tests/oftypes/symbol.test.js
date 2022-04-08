@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { symbol_ } from '../../public.js'
 
+/**
+ * UNIT-test symbol.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     let error

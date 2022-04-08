@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { oftype_ } from '../../public.js'
 
+/**
+ * UNIT-test oftype.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     let error

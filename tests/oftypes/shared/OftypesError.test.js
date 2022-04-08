@@ -2,6 +2,12 @@ import * as tttt from 'trythistrythat'
 import { OftypesError } from '../../../public.js'
 import { strictEqual, throws } from 'node:assert'
 
+/**
+ * UNIT-test OftypesError.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.shared.OftypesError ]**'.bg_yellow().strong().underline(), '\n' )

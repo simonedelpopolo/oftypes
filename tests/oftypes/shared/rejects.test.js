@@ -1,10 +1,16 @@
+import * as assert from 'node:assert'
 import * as tttt from 'trythistrythat'
-import { reject } from '../../../index.js'
-import { rejects, strictEqual } from 'node:assert'
+import { rejects } from '../../../index.js'
 
+/**
+ * UNIT-test rejects.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
-    tttt.describe( '# UNIT tests for **Object [ oftypes.shared.reject ]**'.bg_yellow().strong().underline(), '\n' )
+    tttt.describe( '# UNIT tests for **Object [ oftypes.shared.rejects ]**'.bg_yellow().strong().underline(), '\n' )
     await tttt.separator()
 
     await tttt.line()
@@ -18,16 +24,16 @@ export default async ( id ) => {
     await tttt.separator()
 
     try{
-        await rejects(
+        await assert.rejects(
             async () => {
-                throw await reject(
+                throw await rejects(
                     'undefined_',
                     { strict: false, payback: false, resolvers: 'resolver must be an object' },
                 )
             },
             ( error ) => {
 
-                strictEqual( error.name, 'OftypesError' )
+                assert.strictEqual( error.name, 'OftypesError' )
 
                 tttt.describe( '\n', error.message, '\n' )
 
@@ -53,15 +59,15 @@ export default async ( id ) => {
     await tttt.separator()
 
     try{
-        await rejects(
+        await assert.rejects(
             async () => {
-                throw await reject(
+                throw await rejects(
                     'promise_',
                     { strict: false, payback: false, resolvers: { true: true, no_right_property: false } },
                 )
             },
             ( error ) => {
-                strictEqual( error.name, 'OftypesError' )
+                assert.strictEqual( error.name, 'OftypesError' )
 
                 tttt.describe( '\n', error.message, '\n' )
 
@@ -86,15 +92,15 @@ export default async ( id ) => {
     await tttt.separator()
 
     try{
-        await rejects(
+        await assert.rejects(
             async () => {
-                throw await reject(
+                throw await rejects(
                     'resolvers',
                     { resolvers_argument: {} },
                 )
             },
             ( error )  => {
-                strictEqual( error.name, 'OftypesError' )
+                assert.strictEqual( error.name, 'OftypesError' )
 
                 tttt.line()
                 tttt.describe( error.message )

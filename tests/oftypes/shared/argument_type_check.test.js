@@ -3,7 +3,7 @@ import { argument_type_check } from '../../../index.js'
 import { OftypesError } from '../../../public.js'
 
 /**
- * UNIT-test argument_type_check.test.
+ * UNIT-test argument_type_check.test.js
  *
  * @param {string} id - UNIT-test
  * @returns {Promise<void> | void}

@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { fulfilled } from '../../../index.js'
 
+/**
+ * UNIT-test fulfilled.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     let error

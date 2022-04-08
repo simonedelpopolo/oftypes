@@ -1,6 +1,12 @@
 import * as tttt from 'trythistrythat'
 import { promise_ } from '../../public.js'
 
+/**
+ * UNIT-test promise.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     tttt.describe( '# UNIT tests for **Object [ oftypes.promise_ ]**'.bg_yellow().strong().underline() )

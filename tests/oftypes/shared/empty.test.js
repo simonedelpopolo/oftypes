@@ -2,7 +2,7 @@ import * as tttt from 'trythistrythat'
 import { empty } from '../../../index.js'
 
 /**
- * UNIT-test empty.test.js file.
+ * UNIT-test empty.test.js
  *
  * @param {string} id - UNIT-test
  * @returns {Promise<void> | void}

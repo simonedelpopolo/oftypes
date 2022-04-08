@@ -3,6 +3,12 @@ import * as oftypes from '../../public.js'
 import * as tttt from 'trythistrythat'
 import { rejects, strictEqual } from 'node:assert'
 
+/**
+ * UNIT-test resolvers.test.js
+ *
+ * @param {string} id - UNIT-test
+ * @returns {Promise<void> | void}
+ */
 export default async ( id ) => {
 
     let error
