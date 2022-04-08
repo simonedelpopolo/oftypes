@@ -1,18 +1,18 @@
 {
   "name": "oftypes",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "license": "Apache-2.0",
   "description": "Configurable 'typeof' analysis and responses. Javascript ESModule.",
   "type": "module",
   "main": "public.js",
   "scripts": {
     "lint": "npx eslint . --ext .js",
-    "test": "npx 4t --twd=tests unit"
+    "test": "npx 4t unit"
   },
   "devDependencies": {
     "eslint": "^8.12.0",
     "eslint-plugin-jsdoc": "^38.1.6",
-    "trythistrythat": "^1.4.2"
+    "trythistrythat": "^1.4.3"
   },
   "keywords": [
     "typeof",
@@ -25,6 +25,7 @@
     "undefined",
     "Promise",
     "AsyncFunction",
+    "ArrayBuffer",
     "Array",
     "String",
     "Number",
