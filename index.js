@@ -2,7 +2,8 @@ import {
     argument_type_check__,
     empty__,
     fulfilled__,
-    reject__,
+    rejects__,
+    resolves__,
 } from './lib/exports.js'
 
 /**
@@ -88,6 +89,23 @@ export function fulfilled( compare, data ){
  * @throws {OftypesError}
  * @returns {Promise<undefined|OftypesError> | undefined|OftypesError}
  */
-export function reject( oftypes, argument ){
-    return reject__( oftypes, argument )
+export function rejects( oftypes, argument ){
+    return rejects__( oftypes, argument )
+}
+
+/**
+ * Object [ oftypes.shared.resolve ]
+ * resolves the promise of the <oftypes><functions>.
+ * function that shares this Object:
+ * array_
+ *
+ * .
+ *
+ * @param {Object<{oftype_name:string, constructor_name:string}>} oftype - referenced function name
+ * @param {Object<{variable:any, resolvers:{true:any, false:any},payback:boolean}>} data - arguments
+ * @param {Object<{resolve:PromiseFulfilledResult, reject:PromiseRejectedResult}>} executors - Promise (resolve,reject)
+ * @returns {*}
+ */
+export function resolves( oftype, data, executors ){
+    return resolves__( oftype, data, executors )
 }
