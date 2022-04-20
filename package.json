@@ -1,10 +1,10 @@
 {
   "name": "oftypes",
-  "version": "1.7.14",
+  "version": "1.8.1",
   "license": "Apache-2.0",
   "description": "Configurable 'typeof' analysis and responses. Javascript ESModule.",
   "type": "module",
-  "main": "public.js",
+  "main": "index.js",
   "scripts": {
     "lint": "npx eslint . --ext .js",
     "test": "npx 4t unit",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "eslint": "^8.13.0",
     "eslint-plugin-jsdoc": "^39.2.5",
-    "trythistrythat": "^1.7.0"
+    "trythistrythat": "^1.8.2"
   },
   "keywords": [
     "typeof",
