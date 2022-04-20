@@ -40,7 +40,7 @@ export default async ( id ) => {
     await tttt.separator()
     tttt.describe( '\n', '## (2) test for a number'.bg_yellow().strong().underline(), '\n' )
     tttt.describe( ' ➡ "variable" set to "10_000"' )
-    tttt.describe( ' ➡ returns false'.yellow(), '\n' )
+    tttt.describe( ' ➡ returns true'.yellow(), '\n' )
     await tttt.separator()
 
     error = await tttt.oki( async () => {
@@ -73,8 +73,6 @@ export default async ( id ) => {
     error = await tttt.deeeeepStrictEqual( async () => {
 
         let variable = '10000'
-
-
 
         return {
             expected: [ false, '10000', { type:'String' } ],

@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "license": "Apache-2.0",
   "description": "Configurable 'typeof' analysis and responses. Javascript ESModule.",
   "type": "module",
