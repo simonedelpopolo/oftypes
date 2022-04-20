@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { compare } from '../../public.js'
+import { compare } from '../../index.js'
 
 /**
  * UNIT-test compare.test.js

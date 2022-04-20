@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { undefined_ } from '../../public.js'
+import { undefined_ } from '../../index.js'
 
 /**
  * UNIT-test undefined.test.js

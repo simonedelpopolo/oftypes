@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { oftype_ } from '../../public.js'
+import { oftype_ } from '../../index.js'
 
 /**
  * UNIT-test oftype.test.js

@@ -1,6 +1,6 @@
 {
   "name": "oftypes",
-  "version": "1.7.13",
+  "version": "1.7.14",
   "license": "Apache-2.0",
   "description": "Configurable 'typeof' analysis and responses. Javascript ESModule.",
   "type": "module",
@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "eslint": "^8.13.0",
-    "eslint-plugin-jsdoc": "^39.2.2",
+    "eslint-plugin-jsdoc": "^39.2.5",
     "trythistrythat": "^1.7.0"
   },
   "keywords": [

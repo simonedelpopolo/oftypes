@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { nan_ } from '../../public.js'
+import { nan_ } from '../../index.js'
 
 /**
  * UNIT-test nan.test.js

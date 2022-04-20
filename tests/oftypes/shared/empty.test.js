@@ -1,5 +1,6 @@
 import * as tttt from 'trythistrythat'
-import { empty } from '../../../index.js'
+import empty from '../../../lib/oftypes/shared/empty.js'
+
 
 /**
  * UNIT-test empty.test.js

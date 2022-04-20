@@ -1,6 +1,5 @@
-import * as oftypes from '../public.js'
+import * as oftypes from '../index.js'
 import * as tttt from 'trythistrythat'
-import { oftypes as oftypes_enumerate_objects } from '../lib/exports.js'
 
 /**
  * Examples
@@ -10,12 +9,6 @@ import { oftypes as oftypes_enumerate_objects } from '../lib/exports.js'
  * @returns {Promise<void> | void}
  */
 export default async( id ) => {
-
-    tttt.describe( '# oftypes object structure'.yellow().underline().strong() )
-    await tttt.line()
-    tttt.describe( oftypes_enumerate_objects )
-    await tttt.line()
-    await tttt.separator()
 
     await tttt.line()
     tttt.describe( '# Examples UNIT'.yellow().underline().strong() )

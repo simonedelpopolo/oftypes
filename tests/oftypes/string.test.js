@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { string_ } from '../../public.js'
+import { string_ } from '../../index.js'
 
 /**
  * UNIT-test string.test.js

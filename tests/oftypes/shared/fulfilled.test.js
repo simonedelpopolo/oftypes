@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { fulfilled } from '../../../index.js'
+import fulfilled from '../../../lib/oftypes/shared/fulfilled.js'
 
 /**
  * UNIT-test fulfilled.test.js

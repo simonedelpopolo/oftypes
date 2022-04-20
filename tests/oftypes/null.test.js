@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { null_ } from '../../public.js'
+import { null_ } from '../../index.js'
 
 /**
  * UNIT-test null.test.js

@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { function_ } from '../../public.js'
+import { function_ } from '../../index.js'
 
 /**
  * UNIT-test function.test.js

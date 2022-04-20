@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import * as oftypes from '../../public.js'
+import * as oftypes from '../../index.js'
 import * as tttt from 'trythistrythat'
 import { rejects, strictEqual } from 'node:assert'
 

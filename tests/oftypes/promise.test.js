@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { promise_ } from '../../public.js'
+import { promise_ } from '../../index.js'
 
 /**
  * UNIT-test promise.test.js

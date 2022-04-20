@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { boolean_ } from '../../public.js'
+import { boolean_ } from '../../index.js'
 
 /**
  * UNIT-test boolean.test.js

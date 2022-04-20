@@ -1,6 +1,6 @@
 import * as assert from 'node:assert'
 import * as tttt from 'trythistrythat'
-import { rejects } from '../../../index.js'
+import rejects from '../../../lib/oftypes/shared/rejects.js'
 
 /**
  * UNIT-test rejects.test.js

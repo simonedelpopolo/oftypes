@@ -1,6 +1,6 @@
 import * as tttt from 'trythistrythat'
-import { argument_type_check } from '../../../index.js'
-import { OftypesError } from '../../../public.js'
+import argument_type_check from '../../../lib/oftypes/shared/argument_type_check.js'
+import { OftypesError } from '../../../index.js'
 
 /**
  * UNIT-test argument_type_check.test.js

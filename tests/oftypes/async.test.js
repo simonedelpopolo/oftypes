@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { async_ } from '../../public.js'
+import { async_ } from '../../index.js'
 
 /**
  * UNIT-test async.test.js

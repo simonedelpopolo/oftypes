@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { error_, OftypesError } from '../../public.js'
+import { error_, OftypesError } from '../../index.js'
 
 /**
  * UNIT-test error.test.js

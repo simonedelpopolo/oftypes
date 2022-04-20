@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { symbol_ } from '../../public.js'
+import { symbol_ } from '../../index.js'
 
 /**
  * UNIT-test symbol.test.js

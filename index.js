@@ -1,111 +1,57 @@
-import {
-    argument_type_check__,
-    empty__,
-    fulfilled__,
-    rejects__,
-    resolves__,
-} from './lib/exports.js'
-
+/**
+ * Configurable typeof responses.
+ *
+ * **all the primitives are covered:**
+ *   - BigInt
+ *   - Boolean
+ *   - Buffer(Node.js)
+ *   - String
+ *   - Number
+ *   - Promise
+ *   - undefined
+ *   - Symbol
+ *   - null
+ *
+ * **these are also checked as types:**
+ *   - NaN
+ *   - AsyncFunction
+ *
+ * **to differentiate all the ObjectsTypes is used 'constructor.name' property**
+ *   - "null" and "undefined" are taken off from this condition and threaded as separate types.
+ *   - Javascript ESModule.
+ *
+ * **examples ⇩**.
+ *
+ * @see https://github.com/simonedelpopolo/oftypes/blob/main/assertions/oftypes.examples.js
+ * @type {Oftypes}
+ */
+/**
+ * Oftypes.
+ *
+ * @typedef {Object<Oftypes>} Oftypes
+ */
 /**
  * OftypesError.
  *
  * @typedef {OftypesError} OftypesError
  */
 
-/**
- * Oftypes.
- *
- * @typedef {Object<Oftypes>} Oftypes
- */
-
-/**
- * Exports.
- *
- * @private
- */
-
-/**
- * Type checking for the arguments passed to any of the oftypes Objects function.
- *
- * @param {any} payback - argument
- * @param {any} strict - argument for node:assert/deepStrictEqual @ Object [ oftypes.compare ]
- * @param {any} resolvers - argument
- * @param {any|undefined} string - argument @ Object [ oftypes.number_ ]
- * @param {{truthy:any,falsy:any}|undefined=} resolvers_argument - arguments string @ Object [ oftypes.resolvers ]
- * @returns {AsyncGenerator< boolean|string, boolean, void>}
- */
-export function argument_type_check( payback, strict, resolvers, string, resolvers_argument ){
-    return argument_type_check__( payback, strict, resolvers, string, resolvers_argument )
-}
-
-/**
- * Object [ oftypes.shared.empty ]
- * resolve and return for undefined variable or set to null.
- *
- * @param {any} variable - variable
- * @returns {boolean}
- */
-export function empty( variable ){
-    return empty__( variable )
-}
-
-/**
- * Object [ oftypes.shared.fulfilled ]
- * Method for resolve function in Promise
- * It checks the payback argument. If true it resolve the promise with a destructured array including the resolvers message and the checked variable.
- * Otherwise, just the resolvers.
- *
- * @param {boolean} compare - switcher for <oftypes>.<type> function or <oftypes>.<compare> function
- * @param {
- *    {variable:any,resolvers:{true:any,false:any}|string,payback:{boolean}} |
- *    {v_1:any,v_2:any,resolvers:{true:any,false:any},payback:{boolean}}
- * } data - object including
- * @property {any} variable - argument.
- * @property {any} v_1 - argument.
- * @property {any} v_2 - argument.
- * @property {{true:any,false:any}} resolvers - argument.
- * @property {boolean} payback - argument.
- * @returns {
- *    [any,{true:any,false:any},{type:string}]|{true:any,false:any}
- *    [any,any,{true:any,false:any},{left_type:string,right_type:string}]|{true:any,false:any}
- * } - If payback is true it resolves the promise with a destructured array including the resolvers message, the variable and the variable.constructor.name.
- */
-export function fulfilled( compare, data ){
-    return fulfilled__( compare, data )
-}
-
-/**
- * Object [ oftypes.shared.reject ]
- * it runs the type check for the arguments.
- *
- * @param {string} oftypes - Object
- * @param {{
- *   payback:any,
- *   strict:any,
- *   resolvers:any,
- *   string:boolean|undefined,
- *   resolvers_argument: {truthy:any,falsy:any}=
- * }} argument - arguments
- * @throws {OftypesError}
- * @returns {Promise<undefined|OftypesError> | undefined|OftypesError}
- */
-export function rejects( oftypes, argument ){
-    return rejects__( oftypes, argument )
-}
-
-/**
- * Object [ oftypes.shared.resolve ]
- * resolves the promise of the <oftypes><functions>.
- * function that shares this Object:
- * array_
- *
- * .
- *
- * @param {Object<{oftype_name:string, constructor_name:string}>} oftype - referenced function name
- * @param {Object<{variable:any, resolvers:{true:any, false:any},payback:boolean}>} data - arguments
- * @param {Object<{resolve:PromiseFulfilledResult, reject:PromiseRejectedResult}>} executors - Promise (resolve,reject)
- * @returns {*}
- */
-export function resolves( oftype, data, executors ){
-    return resolves__( oftype, data, executors )
-}
+export { default as array_ } from './lib/oftypes/array_.js'
+export { default as async_ } from './lib/oftypes/async_.js'
+export { default as bigint_ } from './lib/oftypes/bigint_.js'
+export { default as boolean_ } from './lib/oftypes/boolean_.js'
+export { default as buffer_ } from './lib/oftypes/buffer_.js'
+export { default as compare } from './lib/oftypes/compare.js'
+export { default as error_ } from './lib/oftypes/error_.js'
+export { default as function_ } from './lib/oftypes/function_.js'
+export { default as nan_ } from './lib/oftypes/nan_.js'
+export { default as null_ } from './lib/oftypes/null_.js'
+export { default as number_ } from './lib/oftypes/number_.js'
+export { default as object_ } from './lib/oftypes/object_.js'
+export { default as oftype_ } from './lib/oftypes/oftype_.js'
+export { default as promise_ } from './lib/oftypes/promise_.js'
+export { default as resolvers } from './lib/oftypes/resolvers.js'
+export { default as string_ } from './lib/oftypes/string_.js'
+export { default as symbol_ } from './lib/oftypes/symbol_.js'
+export { default as undefined_ } from './lib/oftypes/undefined_.js'
+export { default as OftypesError } from './lib/oftypes/shared/OftypesError.js'

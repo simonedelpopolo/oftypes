@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { OftypesError } from '../../../public.js'
+import { OftypesError } from '../../../index.js'
 import { strictEqual, throws } from 'node:assert'
 
 /**

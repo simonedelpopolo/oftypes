@@ -1,5 +1,5 @@
 import * as tttt from 'trythistrythat'
-import { bigint_ } from '../../public.js'
+import { bigint_ } from '../../index.js'
 
 /**
  * UNIT-test bigint.test.js
