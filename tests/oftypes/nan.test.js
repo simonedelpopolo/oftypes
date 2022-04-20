@@ -40,7 +40,7 @@ export default async ( id ) => {
     await tttt.line()
 
     tttt.describe( 'variable is NOT NaN' )
-    tttt.describe( 'returns [ false, \'0.0314E+2\', {type: \'Object\'} ]'.yellow() )
+    tttt.describe( 'returns [ false, \'0.0314E+2\', {type: \'String\'} ]'.yellow() )
     await tttt.line()
 
     error = await tttt.deeeeepStrictEqual( async () => {
